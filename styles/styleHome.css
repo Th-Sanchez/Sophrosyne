@@ -11,7 +11,7 @@
 }
 
 body {
-    background-color: black;
+    background: linear-gradient(#000000, #1E1E1E);
 }
 
 body::after {
@@ -63,7 +63,7 @@ body::after {
     font-family: "Playfair Display";
     background: -webkit-linear-gradient(right, #E3BC3B 0%, #7D6820 100%);
     background: linear-gradient(to right, #E3BC3B 0%, #7D6820 100%);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -161,6 +161,147 @@ main {
     border-radius: 10px;
 }
 
+.filosofos {
+    margin-top: 225px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .filosofos .container {
-    width: 20%;
+    width: 30%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #4D4D4D;
+    color: white;
+}
+
+.filosofos .container img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.filosofos .container p {
+    font-size: 12px;
+}
+
+.ods {
+    margin-top: 300px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    padding: 0 20% 0 0;
+}
+
+.ods .container {
+    display: flex;
+    color: white;
+    align-items: center;
+    gap: 30px;
+}
+
+.saude { 
+    grid-area: 1 / 1 / 2 / 2;
+    border-right: 2px solid #4D4D4D;
+    border-bottom: 2px solid #4D4D4D;
+    padding: 5%;
+}
+
+.educacao { 
+    grid-area: 1 / 2 / 2 / 3;
+    border-left: 2px solid #4D4D4D;
+    border-bottom: 2px solid #4D4D4D;
+    padding: 5%;
+}
+
+.paz { 
+    grid-area: 2 / 1 / 3 / 2;
+    border-right: 2px solid #4D4D4D;
+    border-top: 2px solid #4D4D4D;
+    padding: 5%;
+}
+
+.consumo { 
+    grid-area: 2 / 2 / 3 / 3;
+    border-left: 2px solid #4D4D4D;
+    border-top: 2px solid #4D4D4D;
+    padding: 5%;
+}
+
+.ods .container img {
+    width: 100px;
+    height: 100px;
+}
+
+.video {
+    margin-top: 350px;
+    width: 100%;
+    color: white;
+    padding: 0 20% 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.video img {
+    width: 60%;
+}
+
+.video .texto {
+    display: grid;
+    gap: 5%;
+}
+
+.video .texto button {
+    justify-self: flex-end;
+    background-color: #E3BC3B;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+.video .texto button a {
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.sobre-mim {
+    margin-top: 400px;
+    padding: 0 20% 0 0;
+}
+
+.sobre-mim .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) 0.05fr repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr) 0.05fr repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: #4D4D4D;
+    padding: 20px;
+}
+
+.minha-imagem { grid-area: 1 / 1 / 4 / 3; }
+.texto1 { grid-area: 1 / 4 / 4 / 6; }
+.texto2 { grid-area: 5 / 1 / 8 / 6; }
+
+footer {
+    background-color: black;
+    width: 100%;
+    height: 10vh;
+    margin-top: 50px;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dev {
+    font-weight: bold;
+}
+
+.links a img {
+    width: 30px;
+    height: 30px;
 }
