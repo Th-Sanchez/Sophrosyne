@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styleRegistro.css">
+    <title>Sophrosyne | Regristro</title>
+</head>
+<body>
+    <main class="container">
+        <article class="voltar"><a href="./home.html"><img src="./assets/right-arrow.png" alt=""></a></article>
+
+        <section style="display: flex;" class="login">
+            <form class="inputs">
+                <article class="email">
+                    <input required id="input_email_login" type="email" placeholder=" ">
+                    <label for="input_email_login">Email:</label>
+                </article>
+                <article class="senha">
+                    <input required id="input_senha_login" type="password" placeholder=" ">
+                    <label for="input_senha_login">Senha:</label>
+                </article>
+                <span>Primeira vez? <a href="#">Cadastre-se</a></span>
+            </form>
+
+        </section>
+        
+        <section style="display: none;" class="cadastro">
+            <form class="inputs">
+                <article class="nome">
+                    <input required id="input_nome_cadastro" placeholder=" ">
+                    <label for="input_nome_cadastro">Nome:</label>
+                </article>
+                <article class="email">
+                    <input required id="input_email_cadastro" placeholder=" ">
+                    <label for="input_email_cadastro">Email:</label>
+                </article>
+                <article class="senha">
+                    <input required id="input_senha_cadastro" placeholder=" ">
+                    <label for="input_senha_cadastro">Senha:</label>
+                </article>
+                <article class="conf-senha">
+                    <input required id="input_csenha_cadastro" placeholder=" ">
+                    <label for="input_csenha_cadastro">Confirmar senha:</label>
+                </article>
+                <span>Já tem conta? <a href="#">Entrar</a></span>
+            </form>
+        </section>
+        
+        <input class="botao" type="submit" value="Entrar">
+    </main>
+</body>
+</html>
