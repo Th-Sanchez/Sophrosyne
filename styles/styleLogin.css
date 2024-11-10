@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css?family=Libre%20Baskerville:700|Brygada%201918:400');
+
+:root {
+    --text: #ffffff;
+    --background: #000000;
+    --primary: #f7c202;
+    --secondary: #985605;
+    --accent: #f7b61c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: 'Brygada 1918';
+    font-weight: 400;
+    backdrop-filter: saturate(10%);
+    background-image: url('../assets/bg-login.png');
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Libre Baskerville';
+    font-weight: 700;
+}
+
+html {font-size: 100%;} /* 16px */
+
+h1 {font-size: 4.210rem; /* 67.36px */}
+
+h2 {font-size: 3.158rem; /* 50.56px */}
+
+h3 {font-size: 2.369rem; /* 37.92px */}
+
+h4 {font-size: 1.777rem; /* 28.48px */}
+
+h5 {font-size: 1.333rem; /* 21.28px */}
+
+small {font-size: 0.750rem; /* 12px */}
+
+header {
+    padding: 10px;
+    width: fit-content;
+}
+
+.voltar {
+    background-color: #1D1D1D;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.voltar a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-image: url(../assets/bg-nuvens.png);
+    background-size: cover;
+}
+
+.container {
+    width: 20vw;
+    max-width: 400px;
+    min-height: 396px;
+    max-height: 550px;
+    border-radius: 25px;
+    background-color: #000000;
+    box-shadow: 0 0 20px 2px #1E1E1E;
+    padding: 20px;
+    transition: all 0.6s ease-in-out;
+}
+
+.login, .register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.decoration {
+    width: 100%;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.decoration .line {
+    border: 1px solid var(--primary);
+    width: 100%;
+    height: 0;
+    display: grid;
+}
+
+.decoration .line .square1 {
+    width: 7px;
+    height: 7px;
+    transform: translate3d(-50%, -50%, 0) rotate(45deg);
+    background-color: var(--primary);
+}
+
+.decoration .line .square2 {
+    width: 7px;
+    height: 7px;
+    justify-self: flex-end;
+    transform: translate3d(50%, -50%, 0) rotate(45deg);
+    background-color: var(--primary);
+}
+
+.title {
+    margin-bottom: 32px;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+    gap: 16px;
+}
+
+.forms-input {
+    background-color: #1D1D1D;
+    width: 100%;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-family: 'Brygada 1918';
+    font-size: 1.333rem;
+}
+
+.text {
+    position: absolute;
+}
+
+.button {
+    border: none;
+    padding: 20px;
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Brygada 1918';
+    text-align: center;
+    line-height: 0.4;
+    background-color: var(--primary);
+}
+
+.screen {
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+}

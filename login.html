@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styleLogin.css">
+    <title>Sofrosine | Login</title>
+</head>
+<body>
+    <header>
+        <section class="voltar">
+            <a href="index.html"><img src="assets/Arrrow.svg"></a>
+        </section>
+    </header>
+
+    <main>
+        <section class="container">
+            <article class="login" id="login">
+                <h3 class="decoration"><div class="line"><div class="square1"></div></div> S <div class="line"><div class="square2"></div></div></h3>
+                <h4 class="title">Login</h4>
+                <form class="form" id="flogin">
+                    <input type="email" name="femail" class="forms-input" placeholder="Email" required>
+                    <input type="password" name="fpassword" class="forms-input" placeholder="Senha" required>
+                </form>
+                <input type="submit" form="flogin" value="Entrar" class="button">
+                <p>Não possuí conta? <a onclick="changeForms('login')" class="screen">Registre-se</a></p>
+            </article>
+            <article class="register" id="register" style="display: none;">
+                <h3 class="decoration"><div class="line"><div class="square1"></div></div> S <div class="line"><div class="square2"></div></div></h3>
+                <h4 class="title">Cadastro</h4>
+                <form class="form" id="fregister">
+                    <input type="text" name="fnome" class="forms-input" placeholder="Nome" required>
+                    <input type="email" name="femail" class="forms-input" placeholder="Email" required>
+                    <input type="password" name="fpassword" class="forms-input" placeholder="Senha" required>
+                    <input type="password" name="fcpassword" class="forms-input" placeholder="Confirmar senha" required>
+                </form>
+                <input type="submit" form="flogin" value="Entrar" class="button">
+                <p>Já possuí conta? <a onclick="changeForms('registro')" class="screen">Entre</a></p>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
+
+<script>
+
+    var containerLogin = document.getElementById('login')
+    var containerRegister = document.getElementById('register')
+
+    function changeForms(telaAtual) {
+        if (telaAtual == 'login') {
+            containerLogin.style.display = 'none'
+            containerRegister.style.display = 'flex'
+        } else {
+            containerLogin.style.display = 'flex'
+            containerRegister.style.display = 'none'
+        }
+    }
+</script>
