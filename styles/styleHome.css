@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css?family=Libre%20Baskerville:700|Brygada%201918:400');
+@import url('https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+
+:root {
+    --text: #ffffff;
+    --background: #000000;
+    --primary: #f7c202;
+    --secondary: #985605;
+    --accent: #f7b61c;
+    --bfont: 'Brygada 1918';
+    --lfont: 'Libre Baskerville';
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    font-family: 'Brygada 1918';
+    background: linear-gradient(#000000, #1A1A1A);
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Libre Baskerville';
+    font-weight: 700;
+}
+
+html {font-size: 100%;} /* 16px */
+
+h1 {font-size: 4.210rem; /* 67.36px */}
+
+h2 {font-size: 3.158rem; /* 50.56px */}
+
+h3 {font-size: 2.369rem; /* 37.92px */}
+
+h4 {font-size: 1.777rem; /* 28.48px */}
+
+h5 {font-size: 1.333rem; /* 21.28px */}
+
+small {font-size: 0.750rem; /* 12px */}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 10vh;
+}
+
+.logo a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.navbar .nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar .nav-list li h4 a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.statue {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    position: relative;
+}
+
+.statue img {
+    height: 600px;
+}
+
+.statue .title {
+    font-family: 'Allura';
+    font-weight: 400;
+    font-size: 96px;
+    bottom: 20%;
+    color: var(--accent);
+    position: absolute;
+}
+
+.statue .quote {
+    width: 225px;
+    font-size: 24px;
+    filter: blur(3px);
+}
+
+.clouds {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-cloud,
+.end-cloud {
+    width: 50vw;
+    height: auto;
+    object-fit: cover;
+}
+
+.center-cloud {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: 1;
+}
+
+.oque {
+    margin-top: 256px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text);
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 24px;
+}
+
+.text-content p {
+    font-size: 20px;
+    font-family: var(--bfont);
+    line-height: 23px;
+}
+
+.carousel {
+    margin-top: 256px;
+    color: var(--text);
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.carousel .container {
+    width: 20%;
+    position: relative;
+}
+
+.carousel .container img {
+    max-width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.banner {
+    margin-top: 128px;
+    width: 100%;
+    background-color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10vh 0;
+}
+
+.banner-content {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner-content h5 {
+    width: 70%;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: var(--bfont);
+}
+
+.banner-content .button {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: var(--secondary);
+}
+
+.banner-content .button h4 a {
+    text-decoration: none;
+    color: var(--text);
+    font-family: var(--bfont);
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.ods, .about-me {
+    margin-top: 128px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.title {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--text);
+}
+
+.title h2 {
+    white-space: nowrap;
+}
+
+.title .line {
+    border: 1.5px solid var(--primary);
+    width: 100%;
+    height: 0;
+    display: grid;
+}
+
+.title .line .square1 {
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary);
+    transform: translate3d(0, -50%, 0) rotate(45deg);
+}
+
+.title .line .square2 {
+    width: 10px;
+    height: 10px;
+    justify-self: flex-end;
+    background-color: var(--primary);
+    transform: translate3d(0, -50%, 0) rotate(45deg);
+}
+
+.ods .grid {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.ods .grid .couple {
+    width: 100%;
+    gap: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ods .grid .couple .container {
+    gap: 16px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    background-color: color-mix(in srgb, var(--secondary) 10%, transparent);
+}
+
+.about-me .content {
+    width: 80%;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.about-me .content .part {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.about-me .content .part .text {
+    font-size: 20px;
+    line-height: 23px;
+    gap: 8px;
+}
+
+.about-me .content p {
+    line-height: 23px;
+    font-size: 20px;
+}
+
+footer {
+    margin-top: 128px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh;
+    background-color: var(--background);
+}
+
+footer p {
+    font-size: 24px;
+    font-style: italic;
+    color: #4D4D4D;
+}
