@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Libre%20Baskerville:700|Brygada%201918:400');
+@import url('https://fonts.googleapis.com/css2?family=Brygada+1918:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+
+:root {
+    --text: #ffffff;
+    --background: #000000;
+    --primary: #f7c202;
+    --secondary: #985605;
+    --accent: #f7b61c;
+    --bfont: 'Brygada 1918';
+    --lfont: 'Libre Baskerville';
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    font-family: 'Brygada 1918';
+    font-weight: 400;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('../assets/bg-feed.jpg');
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Libre Baskerville';
+    font-weight: 700;
+}
+
+html {font-size: 100%;} /* 16px */
+
+h1 {font-size: 4.210rem; /* 67.36px */}
+
+h2 {font-size: 3.158rem; /* 50.56px */}
+
+h3 {font-size: 2.369rem; /* 37.92px */}
+
+h4 {font-size: 1.777rem; /* 28.48px */}
+
+h5 {font-size: 1.333rem; /* 21.28px */}
+
+small {font-size: 0.750rem; /* 12px */}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5vw;
+}
+
+.navbar .logo a {
+    text-decoration: none;
+    color: var(--primary);
+}
+
+.navbar .nav-list {
+    gap: 2vw;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .nav-list li h4 a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh 0;
+}
+
+.container {
+    width: 60%;
+    background-color: black;
+    box-shadow: 0 0 60px 5px #1E1E1E;
+    padding: 3vh 5vw;
+    border-radius: 20px;
+}
+
+.title {
+    width: 100%;
+    border-bottom: 2px solid #606060;
+}
+
+.input-title {
+    border: none;
+    outline: 0;
+    font-size: 64px;
+    font-family: var(--lfont);
+    color: var(--text);
+    background: transparent;
+}
+
+.hashtag {
+    width: 100%;
+    border-bottom: 2px solid #606060;
+    padding: 24px 0;
+}
+
+.add-hashtag {
+    background-color: #4D4D4D;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 5px;
+}
