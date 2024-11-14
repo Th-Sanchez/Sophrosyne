@@ -20,17 +20,17 @@
 
     <main>
         <section class="container">
-            <form name="fpost">
+            <form id="fpost">
                 <article class="title">
-                    <input class="input-title" required placeholder="Título">
+                    <input class="input-title" placeholder="Título" form="fpost" maxlength="32" required>
                 </article>
                 <article class="hashtag">
                     <div class="add-hashtag"># Hashtag</div>
                 </article>
                 <article class="text">
-                    <input class="input-text" required placeholder="Digite aqui...">
+                    <textarea class="input-text" placeholder="Digite aqui..." form="fpost" maxlength="500" required></textarea>
                 </article>
-                <input type="submit" value="Publicar" class="publish-button">
+                <input type="submit" value="Publicar" class="publish-button" form="fpost">
             </form>
         </section>
     </main>

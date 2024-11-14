@@ -22,7 +22,7 @@ body {
     height: 100%;
     font-family: 'Brygada 1918';
     font-weight: 400;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('../assets/bg-feed.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('../assets/bg-post.jpg');
 }
 
 h1, h2, h3, h4, h5 {
@@ -70,8 +70,8 @@ small {font-size: 0.750rem; /* 12px */}
 }
 
 main {
+    height: calc(100vh - 47px);
     display: flex;
-    align-items: center;
     justify-content: center;
     padding: 5vh 0;
 }
@@ -82,16 +82,26 @@ main {
     box-shadow: 0 0 60px 5px #1E1E1E;
     padding: 3vh 5vw;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#fpost {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .title {
     width: 100%;
+    flex-shrink: 0;
     border-bottom: 2px solid #606060;
 }
 
 .input-title {
+    width: 100%;
     border: none;
-    outline: 0;
+    outline: none;
     font-size: 64px;
     font-family: var(--lfont);
     color: var(--text);
@@ -102,6 +112,7 @@ main {
     width: 100%;
     border-bottom: 2px solid #606060;
     padding: 24px 0;
+    flex-shrink: 0;
 }
 
 .add-hashtag {
@@ -109,4 +120,39 @@ main {
     padding: 10px;
     width: fit-content;
     border-radius: 5px;
+}
+
+.text {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-text {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--text);
+    font-size: 24px;
+    font-family: var(--lfont);
+    padding: 32px 0;
+    resize: none;
+    overflow-y: auto;
+}
+
+.publish-button {
+    align-self: flex-end;
+    height: 60px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50px;
+    font-size: 24px;
+    font-family: var(--lfont);
+    background-color: var(--accent);
 }
