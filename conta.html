@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styleConta.css">
+    <title>Sofrosina | Conta</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <h3 class="logo"><a href="home.html">Sofrosina</a></h3>
+            <ul class="nav-list">
+                <li><h4><a href="post.html">Post</a></h4></li>
+                <li><h4><a href="feed.html">Feed</a></h4></li>
+                <li><h4><a href="conta.html">Conta</a></h4></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <aside>
+                <article class="user">
+                    <img src="">
+                    <h4>Usuário</h4>
+                </article>
+                <article class="menu">
+                    <a href="">Dashboard</a>
+                    <a href="">Trocar nome</a>
+                    <a href="">Trocar senha</a>
+                    <a href="">Excluir conta</a>
+                </article>
+                <article class="exit">
+                    <a href="">Sair</a>
+                </article>
+            </aside>
+            <section class="dash-select">
+                <article class="kpi hashtag">
+                    <h4>Hashtag mais usada</h4>
+                    <h5>#MarcoAurélio</h5>
+                </article>
+                <article class="kpi post">
+                    <h4>Total de post</h4>
+                    <h5>58</h5>
+                </article>
+                <article class="kpi likes">
+                    <h4>Total de curtidas</h4>
+                    <h5>1,203</h5>
+                </article>
+                <article class="graphic">
+                    <canvas id="myChart"></canvas>
+                </article>
+                <article class="kpi liked-post">
+                    <h4>Post mais curtido</h4>
+                    <div class="post">
+                        <h5>Felicidade verdadeira</h5>
+                        <p>“A verdadeira felicidade é desfrutar do presente, sem ansiedades dependentes do futuro.”</p>
+                        <span class="hash"></span>
+                    </div>
+                </article>
+            </section>
+            <section class="change-name" style="display: none;">
+                <article>
+                    <h2>Trocar nome</h2>
+                    <form id="fname">
+                        <label for="input_nome_atual">Nome atual</label>
+                        <input type="text" form="fname" id="input_nome_atual" required>
+                        <label for="input_novo_nome">Novo nome</label>
+                        <input type="text" form="fname" id="input_novo_nome" required>
+                        <label for="input_cnovo_nome">Confirmar novo nome</label>
+                        <input type="text" form="fname" id="input_cnovo_nome" required>
+                        <input type="submit" form="fname" value="Trocar" class="button-confirm">
+                    </form>
+                </article>
+                <article>
+                    <h2>Confirmar</h2>
+                    <form id="fconfirm_name">
+                        <label for="input_confirm_senha">Digite a senha para confirmar a troca de nome</label>
+                        <input type="password" form="fconfirm_name" id="input_confirm_senha" required>
+                        <input type="submit" form="fconfirm_name" value="Confirmar" class="button-confirm">
+                        <button onclick="closeConfirm('Name')" class="button-cancel">Cancelar</button>
+                    </form>
+                </article>
+            </section>
+            <section class="change-pass" style="display: none;">
+                <article>
+                    <h2>Trocar senha</h2>
+                    <form id="fsenha">
+                        <label for="input_senha_atual">Senha atual</label>
+                        <input type="text" form="fsenha" id="input_senha_atual" required>
+                        <label for="input_novo_senha">Novo senha</label>
+                        <input type="text" form="fsenha" id="input_novo_senha" required>
+                        <label for="input_cnovo_senha">Confirmar novo senha</label>
+                        <input type="text" form="fsenha" id="input_cnovo_senha" required>
+                        <input type="submit" form="fsenha" value="Trocar" class="button-confirm">
+                    </form>
+                </article>
+                <article>
+                    <h2>Confirmar</h2>
+                    <form id="fconfirm_pass">
+                        <label for="input_confirm_quote">Digite a frase abaixo para confirmar a troca</label>
+                        <p>"Uma frase super legal"</p>
+                        <input type="password" form="fconfirm_pass" id="input_confirm_quote" required>
+                        <input type="submit" form="fconfirm_pass" value="Confirmar" class="button-confirm">
+                        <button onclick="closeConfirm('Password')" class="button-cancel">Cancelar</button>
+                    </form>
+                </article>
+            </section>
+            <section class="delete-account" style="display: none;">
+                <article>
+                    <form id="fdelconta">
+                        <label for="input_nome">Nome</label>
+                        <input type="text" form="fdelconta" id="input_nome" required>
+                        <label for="input_email">Email</label>
+                        <input type="text" form="fdelconta" id="input_email" required>
+                        <label for="input_senha">Senha</label>
+                        <input type="text" form="fdelconta" id="input_senha" required>
+                        <input type="submit" form="fdelconta" value="Deletar" class="button-confirm">
+                        <button onclick="closeConfirm('delAccount')" class="button-cancel">Cancelar</button>
+                    </form>
+                </article>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
