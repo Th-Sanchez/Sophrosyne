@@ -49,6 +49,7 @@ small {font-size: 0.750rem; /* 12px */}
     align-items: center;
     justify-content: space-between;
     padding: 0 5vw;
+    height: 10vh;
 }
 
 .navbar .logo a {
@@ -70,7 +71,7 @@ small {font-size: 0.750rem; /* 12px */}
 }
 
 main {
-    height: calc(100vh - 47px);
+    height: calc(100vh - 10vh);
     display: flex;
     justify-content: center;
     padding: 5vh 0;
