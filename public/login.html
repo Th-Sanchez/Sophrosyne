@@ -18,23 +18,23 @@
             <article class="login" id="login">
                 <h3 class="decoration"><div class="line"><div class="square1"></div></div> S <div class="line"><div class="square2"></div></div></h3>
                 <h4 class="title">Login</h4>
-                <form class="form" id="flogin">
-                    <input type="email" name="femail" class="forms-input" placeholder="Email" required>
-                    <input type="password" name="fpassword" class="forms-input" placeholder="Senha" required>
-                </form>
-                <input type="submit" form="flogin" value="Entrar" class="button">
+                <div class="form" id="flogin">
+                    <input type="email" name="femail" class="forms-input" id="email_input" placeholder="Email" required>
+                    <input type="password" name="fpassword" class="forms-input" id="senha_input" placeholder="Senha" required>
+                </div>
+                <button class="button" onclick="entrar()">Entrar</button>
                 <p>Não possuí conta? <a onclick="changeForms('login')" class="screen">Registre-se</a></p>
             </article>
             <article class="register" id="register" style="display: none;">
                 <h3 class="decoration"><div class="line"><div class="square1"></div></div> S <div class="line"><div class="square2"></div></div></h3>
                 <h4 class="title">Cadastro</h4>
-                <form class="form" id="fregister">
+                <div class="form" id="fregister">
                     <input type="text" name="fnome" class="forms-input" placeholder="Nome" required>
                     <input type="email" name="femail" class="forms-input" placeholder="Email" required>
                     <input type="password" name="fpassword" class="forms-input" placeholder="Senha" required>
                     <input type="password" name="fcpassword" class="forms-input" placeholder="Confirmar senha" required>
-                </form>
-                <input type="submit" form="flogin" value="Entrar" class="button">
+                </div>
+                <button class="button" onclick="cadastrar()">Cadastrar</button>
                 <p>Já possuí conta? <a onclick="changeForms('registro')" class="screen">Entre</a></p>
             </article>
         </section>
@@ -43,7 +43,6 @@
 </html>
 
 <script>
-
     var containerLogin = document.getElementById('login')
     var containerRegister = document.getElementById('register')
 
@@ -55,5 +54,48 @@
             containerLogin.style.display = 'flex'
             containerRegister.style.display = 'none'
         }
+    }
+
+    function entrar() {
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(function () {
+                        window.location = "/feed.html";
+                    }, 1000); // apenas para exibir o loading
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
     }
 </script>
