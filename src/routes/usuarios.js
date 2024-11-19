@@ -12,4 +12,8 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/excluirConta", function (req, res) {
+    usuarioController.excluirConta(req, res);
+});
+
 module.exports = router;

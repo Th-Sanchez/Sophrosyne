@@ -122,6 +122,7 @@ aside {
     color: red;
     gap: 8px;
     display: flex;
+    cursor: pointer;
 }
 
 .dash-select {

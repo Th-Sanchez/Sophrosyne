@@ -1,38 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styleLogin.css">
     <title>Sofrosina | Login</title>
 </head>
-<body>
+
+<body onload="estaLogado()">
     <header>
         <section class="voltar">
-            <a href="home.html"><img src="assets/Arrrow.svg"></a>
+            <a href="index.html"><img src="assets/Arrrow.svg"></a>
         </section>
     </header>
 
     <main>
         <section class="container">
             <article class="login" id="login">
-                <h3 class="decoration"><div class="line"><div class="square1"></div></div> S <div class="line"><div class="square2"></div></div></h3>
+                <h3 class="decoration">
+                    <div class="line">
+                        <div class="square1"></div>
+                    </div> S <div class="line">
+                        <div class="square2"></div>
+                    </div>
+                </h3>
                 <h4 class="title">Login</h4>
                 <div class="form" id="flogin">
                     <input type="email" name="femail" class="forms-input" id="email_input" placeholder="Email" required>
-                    <input type="password" name="fpassword" class="forms-input" id="senha_input" placeholder="Senha" required>
+                    <input type="password" name="fpassword" class="forms-input" id="senha_input" placeholder="Senha"
+                        required>
                 </div>
                 <button class="button" onclick="entrar()">Entrar</button>
                 <p>Não possuí conta? <a onclick="changeForms('login')" class="screen">Registre-se</a></p>
             </article>
             <article class="register" id="register" style="display: none;">
-                <h3 class="decoration"><div class="line"><div class="square1"></div></div> S <div class="line"><div class="square2"></div></div></h3>
+                <h3 class="decoration">
+                    <div class="line">
+                        <div class="square1"></div>
+                    </div> S <div class="line">
+                        <div class="square2"></div>
+                    </div>
+                </h3>
                 <h4 class="title">Cadastro</h4>
                 <div class="form" id="fregister">
-                    <input type="text" name="fnome" class="forms-input" placeholder="Nome" required>
-                    <input type="email" name="femail" class="forms-input" placeholder="Email" required>
-                    <input type="password" name="fpassword" class="forms-input" placeholder="Senha" required>
-                    <input type="password" name="fcpassword" class="forms-input" placeholder="Confirmar senha" required>
+                    <input type="text" id="cadastro_nome_input" class="forms-input" placeholder="Nome" required>
+                    <input type="email" id="cadastro_email_input" class="forms-input" placeholder="Email" required>
+                    <input type="password" id="cadastro_senha_input" class="forms-input" placeholder="Senha" required>
+                    <input type="password" id="confirmacao_senha_input" class="forms-input" placeholder="Confirmar senha" required>
                 </div>
                 <button class="button" onclick="cadastrar()">Cadastrar</button>
                 <p>Já possuí conta? <a onclick="changeForms('registro')" class="screen">Entre</a></p>
@@ -40,6 +55,7 @@
         </section>
     </main>
 </body>
+
 </html>
 
 <script>
@@ -76,8 +92,8 @@
                 console.log(resposta);
                 resposta.json().then(json => {
                     console.log(json);
-                    sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.EMAIL_USUARIO = json.email;
 
                     setTimeout(function () {
                         window.location = "/feed.html";
@@ -97,5 +113,60 @@
         })
 
         return false;
+    }
+
+    function cadastrar() {
+        // aguardar();
+        var nomeVar = cadastro_nome_input.value;
+        var emailVar = cadastro_email_input.value;
+        var senhaVar = cadastro_senha_input.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+        if (senhaVar != confirmacaoSenhaVar) {
+            alert('ATENÇÃO! As senha digitadas deve ser iguais');
+            return;
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000");
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function estaLogado() {
+        var email = sessionStorage.EMAIL_USUARIO;
+        var id = sessionStorage.ID_USUARIO;
+
+        if (email != null && id != null) {
+            window.location = "./conta.html"
+        } else {
+            sessionStorage.clear()
+        }
     }
 </script>

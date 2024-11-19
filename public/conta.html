@@ -9,7 +9,7 @@
 <body>
     <header>
         <nav class="navbar">
-            <h3 class="logo"><a href="home.html">Sofrosina</a></h3>
+            <h3 class="logo"><a href="index.html">Sofrosina</a></h3>
             <ul class="nav-list">
                 <li><h4><a href="post.html">Post</a></h4></li>
                 <li><h4><a href="feed.html">Feed</a></h4></li>
@@ -29,7 +29,7 @@
                     <a href=""><img src="assets/Dash.svg"><p>Dashboard</p></a>
                     <a href=""><img src="assets/Name.svg"><p>Trocar nome</p></a>
                     <a href=""><img src="assets/Password.svg"><p>Trocar senha</p></a>
-                    <a href=""><img src="assets/Account.svg"><p>Excluir conta</p></a>
+                    <a onclick="excluirConta()"><img src="assets/Account.svg"><p>Excluir conta</p></a>
                 </article>
                 <article class="exit">
                     <a onclick="limparSessao()"><img src="assets/Exit.svg"><p>Sair</p></a>
@@ -136,6 +136,46 @@
 <script>
     function limparSessao() {
         sessionStorage.clear();
-        window.location = "../home.html";
+        window.location = "./index.html";
+    }
+
+    function excluirConta() {
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+                    sessionStorage.ID_USUARIO = json.idUsuarioVar;
+
+                    setTimeout(function () {
+                        window.location = "/index.html";
+                    }, 1000); // apenas para exibir o loading
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar excluir a conta!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
     }
 </script>
