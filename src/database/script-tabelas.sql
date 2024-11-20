@@ -10,7 +10,7 @@ CREATE DATABASE sofrosina;
 
 USE sofrosina;
 
-CREATE TABLE usuario (
+CREATE TABLE Usuario (
 	idUsuario int primary key auto_increment,
 	nome varchar(20),
 	email varchar(50),
@@ -18,15 +18,26 @@ CREATE TABLE usuario (
 	dtCriacao datetime default current_timestamp
 );
 
-CREATE TABLE post (
+CREATE TABLE Post (
 	idPost int auto_increment,
 	fkUsuario int,
 	titulo varchar(32),
 	texto varchar(400),
 	dtPost datetime default current_timestamp,
-	constraint pkComposta primary key (idPost, fkUsuario),
+	constraint pkCompostaPost primary key (idPost, fkUsuario),
 	constraint fkUsuarioPost foreign key (fkUsuario)
-		references usuario (idUsuario)
+		references Usuario (idUsuario)
+);
+
+CREATE TABLE Curtida (
+	idCurtida int auto_increment,
+    fkUsuario int,
+    fkPost int,
+    constraint pkCompostaCurtida primary key (idCurtida, fkUsuario, fkPost),
+    constraint fkUsuarioCurtida foreign key (fkUsuario)
+		references Usuario (idUsuario),
+	constraint fkPostCurtida foreign key (fkPost)
+		references Post (idPost)
 );
 
 SELECT * FROM usuario;
