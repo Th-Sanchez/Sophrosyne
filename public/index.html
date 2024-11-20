@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles/styleHome.css">
     <title>Sofrosina | Home</title>
 </head>
-<body>
+<body onload="estaLogado()">
     <header>
         <nav class="navbar">
             <h3 class="logo"><a href="index.html">Sofrosina</a></h3>
@@ -14,7 +14,7 @@
                 <li><h4><a href="#inicio">Inicio</a></h4></li>
                 <li><h4><a href="#ods">ODS</a></h4></li>
                 <li><h4><a href="#sobre-mim">Sobre mim</a></h4></li>
-                <li><h4><a href="login.html">Login</a></h4></li>
+                <li><h4><a href="login.html" id="loginNav">Login</a></h4></li>
             </ul>
         </nav>
     </header>
@@ -137,3 +137,4 @@
     </footer>
 </body>
 </html>
+<script src="scripts/sessaoUsuario.js"></script>

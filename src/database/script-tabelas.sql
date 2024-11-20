@@ -31,3 +31,12 @@ CREATE TABLE post (
 
 SELECT * FROM usuario;
 SELECT * FROM post;
+
+INSERT INTO usuario (nome, email, senha) VALUES
+	('Thiago Sanchez', 'thibpeluci@gmail.com', 'judo2014');
+    
+INSERT INTO post (fkUsuario, titulo, texto) VALUES 
+	(3, 'Abobrinha', 'Testetetetetetetet'),
+	(3, 'Melao', 'dsaihdbisajdbna'),
+	(3, 'Abacate', 'dasdsadasda'),
+	(3, 'Churraco', 'gfdgdfghfhgewfsdfsd');
