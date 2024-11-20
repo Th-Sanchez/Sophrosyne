@@ -1,8 +1,8 @@
 var database = require("../database/config");
 
-function mostrarPosts(idPost) {
-    var instrucaoSql= `SELECT p.idPost, p.titulo, p.texto, p.dtPost, COUNT(c.idCurtida), u.idUsuario, u.nome 
-    FROM Curtida as c JOIN usuario as u ON fkUsuario = idUsuario JOIN post as p ON fkPost = idPost WHERE p.idPost = ${idPost};`
+function publicarPost(titulo, texto, idUsuario) {
+    var instrucaoSql= `INSERT INTO post (titulo, texto, fkUsuario) VALUES ('${titulo}', '${texto}', ${idUsuario});`
+    return database.executar(instrucaoSql);
 }
 
 // function listar() {
@@ -95,10 +95,5 @@ function mostrarPosts(idPost) {
 // }
 
 module.exports = {
-    listar,
-    listarPorUsuario,
-    pesquisarDescricao,
-    publicar,
-    editar,
-    deletar
+    publicarPost
 }

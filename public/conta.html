@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styleConta.css">
     <title>Sofrosina | Conta</title>
 </head>
+
 <body>
     <header>
         <nav class="navbar">
             <h3 class="logo"><a href="index.html">Sofrosina</a></h3>
             <ul class="nav-list">
-                <li><h4><a href="post.html">Post</a></h4></li>
-                <li><h4><a href="feed.html">Feed</a></h4></li>
-                <li><h4><a href="conta.html">Conta</a></h4></li>
+                <li>
+                    <h4><a href="post.html">Post</a></h4>
+                </li>
+                <li>
+                    <h4><a href="feed.html">Feed</a></h4>
+                </li>
+                <li>
+                    <h4><a href="conta.html">Conta</a></h4>
+                </li>
             </ul>
         </nav>
     </header>
@@ -26,45 +34,53 @@
                     <h4>Usuário</h4>
                 </article>
                 <article class="menu">
-                    <a href=""><img src="assets/Dash.svg"><p>Dashboard</p></a>
-                    <a href=""><img src="assets/Name.svg"><p>Trocar nome</p></a>
-                    <a href=""><img src="assets/Password.svg"><p>Trocar senha</p></a>
-                    <a href=""><img src="assets/Account.svg"><p>Excluir conta</p></a>
+                    <a onclick="trocarTela('Dashboard')"><img src="assets/Dash.svg">
+                        <p>Dashboard</p>
+                    </a>
+                    <a onclick="trocarTela('trocarNome')"><img src="assets/Name.svg">
+                        <p>Trocar nome</p>
+                    </a>
+                    <a onclick="trocarTela('trocarSenha')"><img src="assets/Password.svg">
+                        <p>Trocar senha</p>
+                    </a>
+                    <a onclick="trocarTela('excluirConta')"><img src="assets/Account.svg">
+                        <p>Excluir conta</p>
+                    </a>
                 </article>
                 <article class="exit">
-                    <a onclick="limparSessao()"><img src="assets/Exit.svg"><p>Sair</p></a>
+                    <a onclick="limparSessao()"><img src="assets/Exit.svg">
+                        <p>Sair</p>
+                    </a>
                 </article>
             </aside>
-            <section class="dash-select">
-                <div class="up">
-                    <article class="kpi hashtag">
-                        <h4>Hashtag mais usada</h4>
-                        <h5>#MarcoAurélio</h5>
-                    </article>
-                    <article class="kpi post">
-                        <h4>Total de post</h4>
-                        <h5>58</h5>
-                    </article>
-                    <article class="kpi likes">
-                        <h4>Total de curtidas</h4>
-                        <h5>1,203</h5>
-                    </article>
-                </div>
-                <div class="bottom">
-                    <article class="graphic">
-                        <canvas class="post-year" id="myChart"></canvas>
-                    </article>
-                    <article class="kpi liked-post">
-                        <h4>Post mais curtido</h4>
-                        <div class="post">
-                            <h5>Felicidade verdadeira</h5>
-                            <p>“A verdadeira felicidade é desfrutar do presente, sem ansiedades dependentes do futuro.”</p>
-                            <span class="hash"></span>
-                        </div>
-                    </article>
-                </div>
+            <section class="dash-select" id="dashboard">
+                <article class="left">
+                    <div class="up">
+                        <article class="kpi post">
+                            <h4>Total de post</h4>
+                            <h5>58</h5>
+                        </article>
+                        <article class="kpi likes">
+                            <h4>Total de curtidas</h4>
+                            <h5>1,203</h5>
+                        </article>
+                    </div>
+                    <div class="bottom">
+                        <article class="graphic">
+                            <canvas class="post-year" id="myChart"></canvas>
+                        </article>
+                    </div>
+                </article>
+                <article class="kpi liked-post">
+                    <h4>Post mais curtido</h4>
+                    <div class="post">
+                        <h5>Felicidade verdadeira</h5>
+                        <p>“A verdadeira felicidade é desfrutar do presente, sem ansiedades dependentes do futuro.”</p>
+                        <span class="hash"></span>
+                    </div>
+                </article>
             </section>
-            <section class="change-name" style="display: none;">
+            <section class="change-name" id="nome" style="display: none;">
                 <article>
                     <h2>Trocar nome</h2>
                     <div id="fname">
@@ -77,7 +93,7 @@
                         <button class="button-confirm" onclick="confirmarTrocarNome()">Trocar nome</button>
                     </div>
                 </article>
-                <article>
+                <article style="display: none;">
                     <h2>Confirmar</h2>
                     <div id="fconfirm_name">
                         <label for="input_confirm_senha">Digite a senha para confirmar a troca de nome</label>
@@ -87,7 +103,7 @@
                     </div>
                 </article>
             </section>
-            <section class="change-pass" style="display: none;">
+            <section class="change-pass" id="senha" style="display: none;">
                 <article>
                     <h2>Trocar senha</h2>
                     <div id="fsenha">
@@ -100,7 +116,7 @@
                         <button class="button-confirm" onclick="confirmarTrocarSenha()">Trocar senha</button>
                     </div>
                 </article>
-                <article>
+                <article style="display: none;">
                     <h2>Confirmar</h2>
                     <div id="fconfirm_pass">
                         <label for="input_confirm_quote">Digite a frase abaixo para confirmar a troca</label>
@@ -111,15 +127,15 @@
                     </div>
                 </article>
             </section>
-            <section class="delete-account" style="display: none;">
+            <section class="delete-account" id="conta" style="display: none;">
                 <article>
                     <div id="fdelconta">
-                        <label for="input_nome">Nome</label>
-                        <input type="text" form="fdelconta" id="input_nome" required>
+                        <label for="input_nome_del">Nome</label>
+                        <input id="input_nome_del" required>
                         <label for="input_email">Email</label>
-                        <input type="text" form="fdelconta" id="input_email" required>
+                        <input id="input_email_del" required>
                         <label for="input_senha">Senha</label>
-                        <input type="text" form="fdelconta" id="input_senha" required>
+                        <input id="input_senha_del" required>
                         <button class="button-confirm" onclick="excluirConta()">Confirmar</button>
                         <button onclick="closeConfirm('delAccount')" class="button-cancel">Cancelar</button>
                     </div>
@@ -128,6 +144,7 @@
         </div>
     </main>
 </body>
+
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -141,6 +158,21 @@
 
     function excluirConta() {
         var idUsuarioVar = sessionStorage.ID_USUARIO;
+        var nomeVar = sessionStorage.NOME_USUARIO;
+        var emailVar = sessionStorage.EMAIL_USUARIO;
+        var senhaVar = sessionStorage.SENHA_USUARIO;
+
+        var nome = input_nome_del.value;
+        var email = input_email_del.value;
+        var senha = input_senha_del.value;
+
+        if (nome != nomeVar) {
+            return alert('Nome incorreto!')
+        } else if (email != emailVar) {
+            return alert('Email incorreto!')
+        } else if (senha != senhaVar) {
+            return alert('Senha incorreta!')
+        }
 
         fetch("/usuarios/excluirConta", {
             method: "POST",
@@ -218,5 +250,34 @@
         })
 
         return false;
+    }
+
+    function trocarTela(telaAtual) {
+        var dashboard = document.getElementById('dashboard')
+        var nome = document.getElementById('nome')
+        var senha = document.getElementById('senha')
+        var conta = document.getElementById('conta')
+
+        if (telaAtual == 'Dashboard') {
+            dashboard.style.display = 'flex';
+            nome.style.display = 'none';
+            senha.style.display = 'none';
+            conta.style.display = 'none';
+        } else if (telaAtual == 'trocarNome') {
+            dashboard.style.display = 'none';
+            nome.style.display = 'flex';
+            senha.style.display = 'none';
+            conta.style.display = 'none';
+        } else if (telaAtual == 'trocarSenha') {
+            dashboard.style.display = 'none';
+            nome.style.display = 'none';
+            senha.style.display = 'flex';
+            conta.style.display = 'none';
+        } else {
+            dashboard.style.display = 'none';
+            nome.style.display = 'none';
+            senha.style.display = 'none';
+            conta.style.display = 'flex';
+        }
     }
 </script>

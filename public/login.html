@@ -93,7 +93,9 @@
                 resposta.json().then(json => {
                     console.log(json);
                     sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.SENHA_USUARIO = json.senha;
 
                     setTimeout(function () {
                         window.location = "/feed.html";

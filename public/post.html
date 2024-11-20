@@ -20,19 +20,62 @@
 
     <main>
         <section class="container">
-            <form id="fpost">
+            <div id="fpost">
                 <article class="title">
-                    <input class="input-title" placeholder="Título" form="fpost" maxlength="32" required>
-                </article>
-                <article class="hashtag">
-                    <div class="add-hashtag"># Hashtag</div>
+                    <input class="input-title" placeholder="Título" maxlength="32" id="input_titulo">
                 </article>
                 <article class="text">
-                    <textarea class="input-text" placeholder="Digite aqui..." form="fpost" maxlength="400" required></textarea>
+                    <textarea class="input-text" placeholder="Digite aqui..." maxlength="400" id="input_texto"></textarea>
                 </article>
-                <input type="submit" value="Publicar" class="publish-button" form="fpost">
-            </form>
+                <button class="publish-button" onclick="publicar()">
+                    Publicar
+                </button>
+            </div>
         </section>
     </main>
 </body>
 </html>
+
+<script>
+    function publicar() {
+        // aguardar();
+        var tituloVar = input_titulo.value;
+        var textoVar = input_texto.value;
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+        if (tituloVar == '' || textoVar == '') {
+            return alert('Atenção, nem todos os campos foram preenchidos!')
+        }
+
+        // Enviando o valor da nova input
+        fetch("/avisos/publicarPost", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                tituloServer: tituloVar,
+                textoServer: textoVar,
+                idUsuario: idUsuarioVar
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    input_titulo.value = ''
+                    input_texto.value = ''
+                    alert('Post publicado com sucesso!')
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+</script>
