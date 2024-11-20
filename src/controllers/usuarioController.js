@@ -91,8 +91,54 @@ function excluirConta(req, res) {
         );
 }
 
+function trocarNome(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var id = req.body.idUsuarioServer;
+
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+    usuarioModel.trocarNome(id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao excluir a conta! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function trocarSenha(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var id = req.body.idUsuarioServer;
+
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+    usuarioModel.trocarSenha(id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao excluir a conta! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    excluirConta
+    excluirConta,
+    trocarNome,
+    trocarSenha
 }

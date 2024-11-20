@@ -31,6 +31,7 @@ function excluirConta(id) {
         DELETE FROM usuario WHERE idUsuario = ${id};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    excluirTodosPosts(id)
     return database.executar(instrucaoSql);
 }
 
@@ -43,7 +44,6 @@ function excluirTodosPosts(id) {
         DELETE FROM post WHERE fkUsuario = ${id};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    excluirConta(id)
     return database.executar(instrucaoSql);
 }
 

@@ -16,4 +16,12 @@ router.post("/excluirConta", function (req, res) {
     usuarioController.excluirConta(req, res);
 });
 
+router.post("/trocarNome", function (req, res) {
+    usuarioController.trocarNome(req, res);
+});
+
+router.post("/trocarSenha", function (req, res) {
+    usuarioController.trocarSenha(req, res);
+});
+
 module.exports = router;

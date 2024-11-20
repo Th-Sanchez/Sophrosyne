@@ -142,7 +142,7 @@
     function excluirConta() {
         var idUsuarioVar = sessionStorage.ID_USUARIO;
 
-        fetch("/usuarios/autenticar", {
+        fetch("/usuarios/excluirConta", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -157,7 +157,49 @@
                 console.log(resposta);
                 resposta.json().then(json => {
                     console.log(json);
-                    sessionStorage.ID_USUARIO = json.idUsuarioVar;
+
+                    sessionStorage.clear()
+
+                    setTimeout(function () {
+                        window.location = "/index.html";
+                    }, 1000); // apenas para exibir o loading
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar excluir a conta!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function trocarNome() {
+        var idUsuarioVar = sessionStorage.ID_USUARIO;
+
+        fetch("/usuarios/trocarNome", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuarioVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+
+                    sessionStorage.clear()
 
                     setTimeout(function () {
                         window.location = "/index.html";
