@@ -5,6 +5,11 @@ function publicarPost(titulo, texto, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function carregarPosts() {
+    var instrucaoSql = `SELECT p.idPost, (SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = idPost) as contagemLike, p.titulo as titulo, p.texto as texto, DATE_FORMAT(p.dtPost, '%Y-%m-%d') as dataPost, u.idUsuario as Dono, u.nome as nomeUsuario FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario;`
+    return database.executar(instrucaoSql);
+}
+
 // function listar() {
 //     console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
 //     var instrucaoSql = `
@@ -95,5 +100,6 @@ function publicarPost(titulo, texto, idUsuario) {
 // }
 
 module.exports = {
-    publicarPost
+    publicarPost,
+    carregarPosts
 }

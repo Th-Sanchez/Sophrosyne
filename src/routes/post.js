@@ -1,10 +1,14 @@
 var express = require("express");
 var router = express.Router();
 
-var avisoController = require("../controllers/avisoController");
+var postController = require("../controllers/postController");
 
 router.post("/publicarPost", function (req, res) {
-    avisoController.publicarPost(req, res);
+    postController.publicarPost(req, res);
+});
+
+router.get("/carregarPosts", function (req, res) {
+    postController.carregarPosts(req, res);
 });
 
 // router.get("/listar", function (req, res) {

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles/styleFeed.css">
     <title>Sofrosina | Feed</title>
 </head>
-<body>
+<body onload="carregarPosts()">
     <header>
         <nav class="navbar">
             <h3 class="logo"><a href="index.html">Sofrosina</a></h3>
@@ -18,62 +18,72 @@
         </nav>
     </header>
 
-    <main>
-        <section class="post">
-            <article class="top">
-                <h4 class="title">Titulo post</h4>
-                <span class="likes">1,234 <a onclick="darLike()"><img src="assets/heart.svg"></a></span>
-            </article>
-            <p class="text">Texto do comentario</p>
-            <article class="bottom">
-                <small class="write-by">Escrito por <span class="author">O autor</span></small>
-                <small class="date-post">12/11/2024</small>
-            </article>
-        </section>
-        <section class="post">
-            <article class="top">
-                <h4 class="title">Titulo post</h4>
-                <span class="likes">1,234 <a onclick="darLike()"><img src="assets/heart.svg"></a></span>
-            </article>
-            <p class="text">Texto do comentario</p>
-            <article class="bottom">
-                <small class="write-by">Escrito por <span class="author">O autor</span></small>
-                <small class="date-post">12/11/2024</small>
-            </article>
-        </section>
-        <section class="post">
-            <article class="top">
-                <h4 class="title">Titulo post</h4>
-                <span class="likes">1,234 <a onclick="darLike()"><img src="assets/heart.svg"></a></span>
-            </article>
-            <p class="text">Texto do comentario</p>
-            <article class="bottom">
-                <small class="write-by">Escrito por <span class="author">O autor</span></small>
-                <small class="date-post">12/11/2024</small>
-            </article>
-        </section>
-        <section class="post">
-            <article class="top">
-                <h4 class="title">Titulo post</h4>
-                <span class="likes">1,234 <a onclick="darLike()"><img src="assets/heart.svg"></a></span>
-            </article>
-            <p class="text">Texto do comentario</p>
-            <article class="bottom">
-                <small class="write-by">Escrito por <span class="author">O autor</span></small>
-                <small class="date-post">12/11/2024</small>
-            </article>
-        </section>
-        <section class="post">
-            <article class="top">
-                <h4 class="title">Titulo post</h4>
-                <span class="likes">1,234 <a onclick="darLike()"><img src="assets/heart.svg"></a></span>
-            </article>
-            <p class="text">Texto do comentario</p>
-            <article class="bottom">
-                <small class="write-by">Escrito por <span class="author">O autor</span></small>
-                <small class="date-post">12/11/2024</small>
-            </article>
-        </section>
+    <main class="feed" id="feed">
     </main>
 </body>
 </html>
+
+<script>
+    function carregarPosts() {
+        fetch("/post/carregarPosts").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed");
+                    feed.innerHTML = "";
+                    for (let i = 0; i < resposta.length; i++) {
+                        var publicacao = resposta[i];
+
+                        var sectionPost = document.createElement("section");
+                        var articleTop = document.createElement("article");
+                        var h4Titulo = document.createElement("h4");
+                        var spanLike = document.createElement("span");
+                        var pText = document.createElement("p");
+                        var articleBottom = document.createElement("article");
+                        var infoPost = document.createElement("small");
+                        var smallData = document.createElement("small");
+
+                        var data = publicacao.dataPost.split('-'); // ['2024', '11', '21']
+
+                        h4Titulo.innerHTML = `${publicacao.titulo}`;
+                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="darLike()"><img src="assets/heart.svg"></a>`;
+                        pText.innerHTML = `${publicacao.texto}`;
+                        infoPost.innerHTML = `Escrito por <span class="author">${publicacao.nomeUsuario}</span>`;
+                        smallData.innerHTML = `${data[2]}/${data[1]}/${data[0]}`;
+
+                        sectionPost.className = `post`;
+                        articleTop.className = `top`;
+                        h4Titulo.className = `title`;
+                        spanLike.className = `likes`;
+                        pText.className = `text`;
+                        articleBottom.className = `bottom`;
+                        infoPost.className = `write-by`;
+                        smallData.className = `date-post`;
+
+                        sectionPost.appendChild(articleTop);
+                        sectionPost.appendChild(pText);
+                        sectionPost.appendChild(articleBottom);
+                        articleTop.appendChild(h4Titulo);
+                        articleTop.appendChild(spanLike);
+                        articleBottom.appendChild(infoPost);
+                        articleBottom.appendChild(smallData);
+                        feed.appendChild(sectionPost);
+                    }
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+</script>

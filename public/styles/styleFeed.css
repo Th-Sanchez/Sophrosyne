@@ -70,7 +70,7 @@ small {font-size: 0.750rem; /* 12px */}
     color: var(--text);
 }
 
-main {
+.feed {
     display: flex;
     align-items: center;
     justify-content: center;

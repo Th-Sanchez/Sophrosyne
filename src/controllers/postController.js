@@ -1,4 +1,4 @@
-var avisoModel = require("../models/avisoModel");
+var postModel = require("../models/postModel");
 
 function publicarPost(req, res) {
     var titulo = req.body.tituloServer;
@@ -12,7 +12,7 @@ function publicarPost(req, res) {
     } else if (idUsuario == undefined) {
         res.status(403).send("O id do usuário está indefinido!");
     } else {
-        avisoModel.publicarPost(titulo, texto, idUsuario)
+        postModel.publicarPost(titulo, texto, idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -26,6 +26,23 @@ function publicarPost(req, res) {
                 }
             );
     }
+}
+
+function carregarPosts(req, res) {
+    postModel.carregarPosts()
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
 }
 
 // function listar(req, res) {
@@ -127,5 +144,6 @@ function publicarPost(req, res) {
 // }
 
 module.exports = {
-    publicarPost
+    publicarPost,
+    carregarPosts
 }

@@ -42,12 +42,34 @@ CREATE TABLE Curtida (
 
 SELECT * FROM usuario;
 SELECT * FROM post;
+SELECT * FROM curtida;
+  
+-- Inserindo usuários
+INSERT INTO Usuario (nome, email, senha) 
+VALUES 
+('João Silva', 'joao@email.com', 'senha123'),
+('Maria Oliveira', 'maria@email.com', 'senha456'),
+('Carlos Lima', 'carlos@email.com', 'senha789');
 
-INSERT INTO usuario (nome, email, senha) VALUES
-	('Thiago Sanchez', 'thibpeluci@gmail.com', 'judo2014');
+-- Inserindo posts
+INSERT INTO Post (fkUsuario, titulo, texto) 
+VALUES 
+(1, 'Meu Primeiro Post', 'Este é o texto do meu primeiro post.'),
+(2, 'Dicas de Programação', 'Aqui estão algumas dicas úteis para programadores.'),
+(3, 'Viagem dos Sonhos', 'Relato da minha viagem inesquecível.');
+
+INSERT INTO Post (fkUsuario, titulo, texto, dtPost) VALUES
+	(1, 'sdjgfbishjd', 'dfjiognsjodfnsjf', '2024-11-22');
+
+-- Inserindo curtidas
+INSERT INTO Curtida (fkUsuario, fkPost) 
+VALUES 
+(2, 1), -- Maria curtiu o post do João
+(3, 1), -- Carlos curtiu o post do João
+(1, 2), -- João curtiu o post da Maria
+(2, 3); -- Maria curtiu o post do Carlos
+
+SELECT p.idPost, (SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = idPost), p.titulo, p.texto, p.dtPost, u.idUsuario as Dono, u.nome 
+    FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario;
     
-INSERT INTO post (fkUsuario, titulo, texto) VALUES 
-	(3, 'Abobrinha', 'Testetetetetetetet'),
-	(3, 'Melao', 'dsaihdbisajdbna'),
-	(3, 'Abacate', 'dasdsadasda'),
-	(3, 'Churraco', 'gfdgdfghfhgewfsdfsd');
+SELECT DATE_FORMAT(dtPost, '%Y-%m-%d') FROM post;
