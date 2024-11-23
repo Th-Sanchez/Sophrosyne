@@ -24,66 +24,99 @@
 </html>
 
 <script>
-    function carregarPosts() {
-        fetch("/post/carregarPosts").then(function (resposta) {
+    async function carregarPosts() {
+        try {
+            const resposta = await fetch("/post/carregarPosts");
+            
             if (resposta.ok) {
-                if (resposta.status == 204) {
-                    var feed = document.getElementById("feed");
-                    var mensagem = document.createElement("span");
-                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                if (resposta.status === 204) {
+                    const feed = document.getElementById("feed");
+                    const mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado.";
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
 
-                resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                const dados = await resposta.json();
+                console.log("Dados recebidos: ", JSON.stringify(dados));
 
-                    var feed = document.getElementById("feed");
-                    feed.innerHTML = "";
-                    for (let i = 0; i < resposta.length; i++) {
-                        var publicacao = resposta[i];
+                const feed = document.getElementById("feed");
+                feed.innerHTML = ""; // Limpa o feed antes de preencher
 
-                        var sectionPost = document.createElement("section");
-                        var articleTop = document.createElement("article");
-                        var h4Titulo = document.createElement("h4");
-                        var spanLike = document.createElement("span");
-                        var pText = document.createElement("p");
-                        var articleBottom = document.createElement("article");
-                        var infoPost = document.createElement("small");
-                        var smallData = document.createElement("small");
+                for (let publicacao of dados) {
+                    const sectionPost = document.createElement("section");
+                    const articleTop = document.createElement("article");
+                    const h4Titulo = document.createElement("h4");
+                    const spanLike = document.createElement("span");
+                    const pText = document.createElement("p");
+                    const articleBottom = document.createElement("article");
+                    const infoPost = document.createElement("small");
+                    const smallData = document.createElement("small");
 
-                        var data = publicacao.dataPost.split('-'); // ['2024', '11', '21']
+                    const data = publicacao.dataPost.split('-');
 
-                        h4Titulo.innerHTML = `${publicacao.titulo}`;
-                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="darLike()"><img src="assets/heart.svg"></a>`;
-                        pText.innerHTML = `${publicacao.texto}`;
-                        infoPost.innerHTML = `Escrito por <span class="author">${publicacao.nomeUsuario}</span>`;
-                        smallData.innerHTML = `${data[2]}/${data[1]}/${data[0]}`;
+                    h4Titulo.innerHTML = `${publicacao.titulo}`;
 
-                        sectionPost.className = `post`;
-                        articleTop.className = `top`;
-                        h4Titulo.className = `title`;
-                        spanLike.className = `likes`;
-                        pText.className = `text`;
-                        articleBottom.className = `bottom`;
-                        infoPost.className = `write-by`;
-                        smallData.className = `date-post`;
+                    const idUsuario = JSON.parse(sessionStorage.ID_USUARIO);
+                    const respostaLike = await verificarLike(publicacao.idPost, idUsuario);
+                    console.log("Resposta do like:", respostaLike);
 
-                        sectionPost.appendChild(articleTop);
-                        sectionPost.appendChild(pText);
-                        sectionPost.appendChild(articleBottom);
-                        articleTop.appendChild(h4Titulo);
-                        articleTop.appendChild(spanLike);
-                        articleBottom.appendChild(infoPost);
-                        articleBottom.appendChild(smallData);
-                        feed.appendChild(sectionPost);
+                    if (respostaLike) {
+                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="descurtirPost()"><img src="assets/heart-red.svg"></a>`;
+                    } else {
+                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="curtirPost()"><img src="assets/heart.svg"></a>`;
                     }
-                });
+
+                    pText.innerHTML = `${publicacao.texto}`;
+                    infoPost.innerHTML = `Escrito por <span class="author">${publicacao.nomeUsuario}</span>`;
+                    smallData.innerHTML = `${data[2]}/${data[1]}/${data[0]}`;
+
+                    sectionPost.className = `post`;
+                    articleTop.className = `top`;
+                    h4Titulo.className = `title`;
+                    spanLike.className = `likes`;
+                    pText.className = `text`;
+                    articleBottom.className = `bottom`;
+                    infoPost.className = `write-by`;
+                    smallData.className = `date-post`;
+
+                    sectionPost.appendChild(articleTop);
+                    sectionPost.appendChild(pText);
+                    sectionPost.appendChild(articleBottom);
+                    articleTop.appendChild(h4Titulo);
+                    articleTop.appendChild(spanLike);
+                    articleBottom.appendChild(infoPost);
+                    articleBottom.appendChild(smallData);
+                    feed.appendChild(sectionPost);
+                }
             } else {
-                throw ('Houve um erro na API!');
+                throw "Houve um erro na API!";
             }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
+        } catch (erro) {
+            console.error(erro);
+        }
+    }
+
+    async function verificarLike(idPost, idUsuario) {
+        try {
+            const resposta = await fetch(`/post/verificarLike/${idPost}/${idUsuario}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (resposta.ok) {
+                const json = await resposta.json();
+                console.log(json);
+                return json.length > 0;
+            } else {
+                console.log("Erro ao buscar o like.");
+                return false;
+            }
+        } catch (erro) {
+            console.error("Erro na função verificarLike:", erro);
+            return false;
+        }
     }
 </script>

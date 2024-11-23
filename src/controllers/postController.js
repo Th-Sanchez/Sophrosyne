@@ -42,108 +42,33 @@ function carregarPosts(req, res) {
                 res.status(500).json(erro.sqlMessage);
             }
         );
-
 }
 
-// function listar(req, res) {
-//     avisoModel.listar().then(function (resultado) {
-//         if (resultado.length > 0) {
-//             res.status(200).json(resultado);
-//         } else {
-//             res.status(204).send("Nenhum resultado encontrado!")
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//         console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-//         res.status(500).json(erro.sqlMessage);
-//     });
-// }
+function verificarLike(req, res) {
+    var idPost = req.params.idPost;
+    var idUsuario = req.params.idUsuario;
 
-// function listarPorUsuario(req, res) {
-//     var idUsuario = req.params.idUsuario;
-
-//     avisoModel.listarPorUsuario(idUsuario)
-//         .then(
-//             function (resultado) {
-//                 if (resultado.length > 0) {
-//                     res.status(200).json(resultado);
-//                 } else {
-//                     res.status(204).send("Nenhum resultado encontrado!");
-//                 }
-//             }
-//         )
-//         .catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log(
-//                     "Houve um erro ao buscar os avisos: ",
-//                     erro.sqlMessage
-//                 );
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
-// }
-
-// function pesquisarDescricao(req, res) {
-//     var descricao = req.params.descricao;
-
-//     avisoModel.pesquisarDescricao(descricao)
-//         .then(
-//             function (resultado) {
-//                 if (resultado.length > 0) {
-//                     res.status(200).json(resultado);
-//                 } else {
-//                     res.status(204).send("Nenhum resultado encontrado!");
-//                 }
-//             }
-//         ).catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
-// }
-
-// function editar(req, res) {
-//     var novaDescricao = req.body.descricao;
-//     var idAviso = req.params.idAviso;
-
-//     avisoModel.editar(novaDescricao, idAviso)
-//         .then(
-//             function (resultado) {
-//                 res.json(resultado);
-//             }
-//         )
-//         .catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
-
-// }
-
-// function deletar(req, res) {
-//     var idAviso = req.params.idAviso;
-
-//     avisoModel.deletar(idAviso)
-//         .then(
-//             function (resultado) {
-//                 res.json(resultado);
-//             }
-//         )
-//         .catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
-// }
+    postModel.verificarLike(idPost, idUsuario)
+        .then(
+            function (resultado) {
+                console.log(resultado.length)
+                if (resultado.length == 0) {
+                    return res.status(204).send()
+                }
+                return res.status(200).json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao buscar o like: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 module.exports = {
     publicarPost,
-    carregarPosts
+    carregarPosts,
+    verificarLike
 }
