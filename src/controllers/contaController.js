@@ -1,36 +1,9 @@
-var postModel = require("../models/postModel");
+var postModel = require("../models/contaModel");
 
-function publicarPost(req, res) {
-    var titulo = req.body.tituloServer;
-    var texto = req.body.textoServer;
-    var idUsuario = req.body.idUsuario;
-
-    if (titulo == undefined) {
-        res.status(400).send("O título está indefinido!");
-    } else if (texto == undefined) {
-        res.status(400).send("A descrição está indefinido!");
-    } else if (idUsuario == undefined) {
-        res.status(403).send("O id do usuário está indefinido!");
-    } else {
-        postModel.publicarPost(titulo, texto, idUsuario)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            )
-            .catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-}
-
-function carregarPosts(req, res) {
-    postModel.carregarPosts()
-        .then(
+function totalPost(req, res) {
+    var idUsuario = req.params.idUsuario;
+    postModel.totalPost(idUsuario)
+        .then( 
             function (resultado) {
                 res.json(resultado);
             }
@@ -38,35 +11,48 @@ function carregarPosts(req, res) {
         .catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                console.log("Houve um erro contar os posts: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
 }
 
-function verificarLike(req, res) {
-    var idPost = req.params.idPost;
-    var idUsuario = req.params.idUsuario;
-
-    postModel.verificarLike(idPost, idUsuario)
-        .then(
+function totalCurtidas(req, res) {
+    var idUsuario = res.params.idUsuario;
+    postModel.totalCurtidas(idUsuario)
+        .then( 
             function (resultado) {
-                console.log(resultado.length)
-                if (resultado.length == 0) {
-                    return res.status(204).send()
-                }
-                return res.status(200).json(resultado);
+                res.json(resultado);
             }
         )
         .catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao buscar o like: ", erro.sqlMessage);
+                console.log("Houve um erro contar os likes: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function postMaisCurtido(req, res) {
+    var idUsuario = res.params.idUsuario;
+    postModel.postMaisCurtido(idUsuario)
+        .then( 
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro aos buscar o post mais curtido: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );
 }
 
 module.exports = {
-    
+    totalPost,
+    totalCurtidas,
+    postMaisCurtido
 }

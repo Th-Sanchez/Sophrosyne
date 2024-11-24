@@ -8,7 +8,7 @@
     <title>Sofrosina | Conta</title>
 </head>
 
-<body>
+<body onload="totalPost()">
     <header>
         <nav class="navbar">
             <h3 class="logo"><a href="index.html">Sofrosina</a></h3>
@@ -58,11 +58,11 @@
                     <div class="up">
                         <article class="kpi post">
                             <h4>Total de post</h4>
-                            <h5>58</h5>
+                            <h5 id="totalPost">58</h5>
                         </article>
                         <article class="kpi likes">
                             <h4>Total de curtidas</h4>
-                            <h5>1,203</h5>
+                            <h5 id="totalCurtidas">1,203</h5>
                         </article>
                     </div>
                     <div class="bottom">
@@ -279,5 +279,59 @@
             senha.style.display = 'none';
             conta.style.display = 'flex';
         }
+    }
+
+    function totalPost() {
+        var idUsuarioVar = JSON.parse(sessionStorage.ID_USUARIO);
+
+        fetch(`/conta/totalPost/${idUsuarioVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then( resposta => {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    var totalPost = document.getElementById('totalPost');
+                    totalPost.innerHTML = `${json[0].totalPost}`
+                });
+            } else {
+                console.log("Houve um erro ao buscar o total de posts do usuario");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        }).catch(erro => {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function totalCurtidas() {
+        var idUsuarioVar = JSON.parse(sessionStorage.ID_USUARIO);
+
+        fetch(`/conta/totalCurtidas/${idUsuarioVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then( resposta => {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    var totalCurtidas = document.getElementById('totalCurtidas');
+                    totalCurtidas.innerHTML = `${json[0].totalCurtidas}`
+                });
+            } else {
+                console.log("Houve um erro ao buscar o total de posts do usuario");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        }).catch(erro => {
+            console.log(erro);
+        })
+
+        return false;
     }
 </script>

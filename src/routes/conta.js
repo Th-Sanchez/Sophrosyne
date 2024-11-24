@@ -3,8 +3,16 @@ var router = express.Router();
 
 var contaController = require("../controllers/contaController");
 
-router.post("/publicarPost", function (req, res) {
-    contaController.publicarPost(req, res);
+router.get("/totalPost/:idUsuario", function (req, res) {
+    contaController.totalPost(req, res);
+});
+
+router.get("/totalCurtidas/:idUsuario", function (req, res) {
+    contaController.totalCurtidas(req, res);
+});
+
+router.get("/postMaisCurtido/:idUsuario", function (req, res) {
+    contaController.postMaisCurtido(req, res);
 });
 
 module.exports = router;
