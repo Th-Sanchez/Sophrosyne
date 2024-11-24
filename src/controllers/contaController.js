@@ -18,7 +18,7 @@ function totalPost(req, res) {
 }
 
 function totalCurtidas(req, res) {
-    var idUsuario = res.params.idUsuario;
+    var idUsuario = req.params.idUsuario;
     postModel.totalCurtidas(idUsuario)
         .then( 
             function (resultado) {
@@ -35,7 +35,7 @@ function totalCurtidas(req, res) {
 }
 
 function postMaisCurtido(req, res) {
-    var idUsuario = res.params.idUsuario;
+    var idUsuario = req.params.idUsuario;
     postModel.postMaisCurtido(idUsuario)
         .then( 
             function (resultado) {

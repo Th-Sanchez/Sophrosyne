@@ -6,7 +6,7 @@ function totalPost(idUsuario) {
 }
 
 function totalCurtidas(idUsuario) {
-    var instrucaoSql = `SELECT SUM(curtidasPost) AS totalCurtida FROM (SELECT COUNT(c.idCurtida) AS curtidasPost FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = ${idUsuario} GROUP BY p.idPost);`
+    var instrucaoSql = `SELECT SUM(curtidasPost) AS totalCurtida FROM (SELECT COUNT(c.idCurtida) AS curtidasPost FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = ${idUsuario} GROUP BY p.idPost) as postsCurtidosUsuario;`
     return database.executar(instrucaoSql);
 }
 

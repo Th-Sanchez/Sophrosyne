@@ -84,3 +84,5 @@ FROM (
     WHERE p.fkUsuario = 1
     GROUP BY p.idPost
 ) AS subconsulta;
+
+SELECT p.titulo as titulo, p.texto as texto, COUNT(c.idCurtida) as total_curtidas FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = 1 GROUP BY p.idPost ORDER BY total_curtidas DESC;
