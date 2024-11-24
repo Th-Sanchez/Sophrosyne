@@ -73,3 +73,14 @@ SELECT p.idPost, (SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = idPost), p
     FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario;
     
 SELECT DATE_FORMAT(dtPost, '%Y-%m-%d') FROM post;
+
+SELECT SUM((SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = (SELECT idPost FROM Post WHERE fkUsuario = 1))) FROM Post JOIN Curtida ON fkPost = idPost;
+
+SELECT SUM(curtidas_por_post) 
+FROM (
+    SELECT COUNT(c.idCurtida) AS curtidas_por_post
+    FROM Post p
+    LEFT JOIN Curtida c ON c.fkPost = p.idPost
+    WHERE p.fkUsuario = 1
+    GROUP BY p.idPost
+) AS subconsulta;
