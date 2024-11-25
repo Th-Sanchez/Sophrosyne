@@ -23,6 +23,7 @@ body {
     font-family: 'Brygada 1918';
     font-weight: 400;
     background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('../assets/bg-feed.jpg');
+    background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5 {

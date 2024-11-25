@@ -6,7 +6,7 @@ function publicarPost(titulo, texto, idUsuario) {
 }
 
 function carregarPosts() {
-    var instrucaoSql = `SELECT p.idPost, (SELECT COUNT(idCurtida) FROM Curtida JOIN Post ON fkPost = idPost WHERE fkPost = p.idPost) as contagemLike, p.titulo as titulo, p.texto as texto, DATE_FORMAT(p.dtPost, '%Y-%m-%d') as dataPost, u.idUsuario as Dono, u.nome as nomeUsuario FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario;`
+    var instrucaoSql = `SELECT p.idPost as idPost, (SELECT COUNT(idCurtida) FROM Curtida JOIN Post ON fkPost = idPost WHERE fkPost = p.idPost) as contagemLike, p.titulo as titulo, p.texto as texto, DATE_FORMAT(p.dtPost, '%Y-%m-%d') as dataPost, u.idUsuario as Dono, u.nome as nomeUsuario FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario ORDER BY dtPost DESC;`
     return database.executar(instrucaoSql);
 }
 

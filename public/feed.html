@@ -62,9 +62,9 @@
                     console.log("Resposta do like:", respostaLike);
 
                     if (respostaLike) {
-                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="descurtirPost()"><img src="assets/heart-red.svg"></a>`;
+                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="descurtirPost(${publicacao.idPost})"><img src="assets/heart-red.svg"></a>`;
                     } else {
-                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="curtirPost()"><img src="assets/heart.svg"></a>`;
+                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="curtirPost(${publicacao.idPost})"><img src="assets/heart.svg"></a>`;
                     }
 
                     pText.innerHTML = `${publicacao.texto}`;
@@ -119,4 +119,6 @@
             return false;
         }
     }
+
+    JSON.parse(sessionStorage.ID_USUARIO)
 </script>

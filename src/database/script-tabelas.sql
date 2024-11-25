@@ -58,9 +58,6 @@ VALUES
 (2, 'Dicas de Programação', 'Aqui estão algumas dicas úteis para programadores.'),
 (3, 'Viagem dos Sonhos', 'Relato da minha viagem inesquecível.');
 
-INSERT INTO Post (fkUsuario, titulo, texto, dtPost) VALUES
-	(1, 'sdjgfbishjd', 'dfjiognsjodfnsjf', '2024-11-22');
-
 -- Inserindo curtidas
 INSERT INTO Curtida (fkUsuario, fkPost) 
 VALUES 
