@@ -6,12 +6,12 @@ function totalPost(idUsuario) {
 }
 
 function totalCurtidas(idUsuario) {
-    var instrucaoSql = `SELECT SUM(curtidasPost) AS totalCurtida FROM (SELECT COUNT(c.idCurtida) AS curtidasPost FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = ${idUsuario} GROUP BY p.idPost) as postsCurtidosUsuario;`
+    var instrucaoSql = `SELECT SUM(curtidasPost) AS totalCurtidas FROM (SELECT COUNT(c.idCurtida) AS curtidasPost FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = ${idUsuario} GROUP BY p.idPost) as postsCurtidosUsuario;`
     return database.executar(instrucaoSql);
 }
 
 function postMaisCurtido(idUsuario) {
-    var instrucaoSql = `SELECT p.titulo as titulo, p.texto as texto, COUNT(c.idCurtida) as totalCurtidas FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = ${idUsuario} GROUP BY p.idPost ORDER BY totalCurtidas DESC;`
+    var instrucaoSql = `SELECT p.titulo as titulo, p.texto as texto, COUNT(c.idCurtida) as totalCurtidas FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = ${idUsuario} GROUP BY p.idPost ORDER BY totalCurtidas DESC LIMIT 1;`
     return database.executar(instrucaoSql);
 }
 

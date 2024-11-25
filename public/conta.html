@@ -8,7 +8,7 @@
     <title>Sofrosina | Conta</title>
 </head>
 
-<body onload="totalPost(), totalCurtidas()">
+<body onload="totalPost(), totalCurtidas(), postMaisCurtido()">
     <header>
         <nav class="navbar">
             <h3 class="logo"><a href="index.html">Sofrosina</a></h3>
@@ -74,9 +74,8 @@
                 <article class="kpi liked-post">
                     <h4>Post mais curtido</h4>
                     <div class="post">
-                        <h5>Felicidade verdadeira</h5>
-                        <p>“A verdadeira felicidade é desfrutar do presente, sem ansiedades dependentes do futuro.”</p>
-                        <span class="hash"></span>
+                        <h5 id="titulo-post">Felicidade verdadeira</h5>
+                        <p id="texto-post">“A verdadeira felicidade é desfrutar do presente, sem ansiedades dependentes do futuro.”</p>
                     </div>
                 </article>
             </section>
@@ -320,7 +319,36 @@
             if (resposta.ok) {
                 resposta.json().then(json => {
                     var totalCurtidas = document.getElementById('totalCurtidas');
-                    totalCurtidas.innerHTML = `${json[0].totalCurtida}`
+                    totalCurtidas.innerHTML = `${json[0].totalCurtidas}`
+                });
+            } else {
+                console.log("Houve um erro ao buscar o total de posts do usuario");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                })
+            }
+        }).catch(erro => {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function postMaisCurtido() {
+        var idUsuarioVar = JSON.parse(sessionStorage.ID_USUARIO);
+
+        fetch(`/conta/postMaisCurtido/${idUsuarioVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then( resposta => {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    var titulo = document.getElementById('titulo-post');
+                    var texto = document.getElementById('texto-post');
+                    titulo.innerHTML = `${json[0].titulo}`
+                    texto.innerHTML = `${json[0].texto}`
                 });
             } else {
                 console.log("Houve um erro ao buscar o total de posts do usuario");
