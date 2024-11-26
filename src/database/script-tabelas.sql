@@ -69,6 +69,8 @@ VALUES
 SELECT p.idPost, (SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = idPost), p.titulo, p.texto, p.dtPost, u.idUsuario as Dono, u.nome 
     FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario;
     
+SELECT p.idPost as idPost, (SELECT COUNT(idCurtida) FROM Curtida JOIN Post ON fkPost = idPost WHERE fkPost = p.idPost) as contagemLike, p.titulo as titulo, p.texto as texto, DATE_FORMAT(p.dtPost, '%Y-%m-%d') as dataPost, u.idUsuario as Dono, u.nome as nomeUsuario FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario ORDER BY dtPost desc;
+    
 SELECT DATE_FORMAT(dtPost, '%Y-%m-%d') FROM post;
 
 SELECT SUM((SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = (SELECT idPost FROM Post WHERE fkUsuario = 1))) FROM Post JOIN Curtida ON fkPost = idPost;
@@ -83,3 +85,29 @@ FROM (
 ) AS subconsulta;
 
 SELECT p.titulo as titulo, p.texto as texto, COUNT(c.idCurtida) as total_curtidas FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = 1 GROUP BY p.idPost ORDER BY total_curtidas DESC LIMIT 1;
+
+SELECT 
+    Month(dtPost) as mes,
+    COUNT(*) AS quantidade_posts
+FROM 
+    Post
+WHERE 
+    fkUsuario = 1
+GROUP BY 
+    Month(dtPost)
+ORDER BY 
+    Month(dtPost);
+    
+INSERT INTO Post (fkUsuario, titulo, texto, dtPost) VALUES 
+(1, 'Reflexões Estoicas', 'Comece o ano com propósito. A disciplina é o caminho para a liberdade.', '2024-01-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Resista às adversidades com coragem. Concentre-se no que você pode controlar.', '2024-02-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Aceite as mudanças inevitáveis com serenidade e mantenha a mente tranquila.', '2024-03-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'A prática diária da virtude leva à excelência. Foque na sua ética.', '2024-04-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Tudo tem o seu tempo. Cultive a paciência e aprenda a esperar.', '2024-05-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Busque sempre a verdade e o conhecimento. A sabedoria é a base do estoicismo.', '2024-06-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Enfrente os desafios do meio do ano com bravura e determinação.', '2024-07-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Equilibre as emoções e os desejos. A virtude está no meio termo.', '2024-08-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Aprecie as pequenas coisas e seja grato pelo presente.', '2024-09-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'O outono nos ensina a deixar ir. Seja resiliente diante das perdas.', '2024-10-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Mantenha o autocontrole mesmo quando o mundo ao seu redor parece caótico.', '2024-11-15 10:00:00'),
+(1, 'Reflexões Estoicas', 'Olhe para o ano que passou. Aprenda com os erros e celebre as conquistas.', '2024-12-15 10:00:00');

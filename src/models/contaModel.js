@@ -15,8 +15,14 @@ function postMaisCurtido(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function numeroPostsMes(idUsuario) {
+    var instrucaoSql = `SELECT Month(dtPost) as mes, COUNT(*) AS qtdPosts FROM Post WHERE fkUsuario = ${idUsuario} GROUP BY Month(dtPost) ORDER BY Month(dtPost);`
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     totalPost,
     totalCurtidas,
-    postMaisCurtido
+    postMaisCurtido,
+    numeroPostsMes
 }

@@ -15,4 +15,8 @@ router.get("/postMaisCurtido/:idUsuario", function (req, res) {
     contaController.postMaisCurtido(req, res);
 });
 
+router.get("/numeroPostsMes/:idUsuario", function (req, res) {
+    contaController.numeroPostsMes(req, res);
+});
+
 module.exports = router;
