@@ -225,12 +225,18 @@ function numeroPostsMes() {
                 const grafico_post = document.getElementById('myChart')
                 grafico_post.style.backgroundColor = '#0A0A0A'  
 
+                var listaNumeroPosts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+                for (var i = 0; i < json.length; i++) {
+                    listaNumeroPosts.splice(json[i].mes - 1, 1, json[i].qtdPosts);
+                }
+
                 const labels = [`Janeiro`, `Fevereiro`, `Março`, `Abril`, `Maio`, `Junho`, `Julho`, `Agosto`, `Setembro`, `Outubro`, `Novembro`, `Dezembro`];
                 const data = {
                     labels: labels,
                     datasets: [{
                         label: '',
-                        data: [],
+                        data: listaNumeroPosts,
                         backgroundColor: [
                             '#F7B61C'
                         ],
@@ -267,16 +273,6 @@ function numeroPostsMes() {
                         }
                     },
                 };
-
-                for (var i = 0; i < json.length; i++) {
-                    if (json[i].mes == i+1) {
-                        if (json[i].qtdPosts != 0) {
-                            data.datasets[0].data.push(json[i].qtdPosts)
-                        } else {
-                            data.datasets[0].data.push(0)
-                        }
-                    }
-                }
 
                 const graficoPost = new Chart(grafico_post, config);
             });

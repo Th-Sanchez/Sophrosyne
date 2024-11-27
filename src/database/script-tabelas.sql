@@ -45,69 +45,56 @@ SELECT * FROM post;
 SELECT * FROM curtida;
   
 -- Inserindo usuários
-INSERT INTO Usuario (nome, email, senha) 
-VALUES 
-('João Silva', 'joao@email.com', 'senha123'),
-('Maria Oliveira', 'maria@email.com', 'senha456'),
-('Carlos Lima', 'carlos@email.com', 'senha789');
+INSERT INTO Usuario (nome, email, senha) VALUES
+('Marco Aurélio', 'marco.aurelio@email.com', 'senha123'),
+('Sêneca', 'seneca@email.com', 'stoico456'),
+('Epicteto', 'epicteto@email.com', 'virtude789'),
+('Cícero', 'cicero@email.com', 'razão101'),
+('Zenão', 'zenao@email.com', 'logica202'),
+('Cleanto', 'cleanto@email.com', 'natureza303'),
+('Musônio Rufo', 'musonio@email.com', 'autocontrole404'),
+('Crísipo', 'crisipo@email.com', 'sabedoria505'),
+('Hierocles', 'hierocles@email.com', 'harmonia606'),
+('Diotimo', 'diotimo@email.com', 'equilibrio707');
 
--- Inserindo posts
+-- Inserindo posts (Mes atual)
 INSERT INTO Post (fkUsuario, titulo, texto) 
 VALUES 
-(1, 'Meu Primeiro Post', 'Este é o texto do meu primeiro post.'),
-(2, 'Dicas de Programação', 'Aqui estão algumas dicas úteis para programadores.'),
-(3, 'Viagem dos Sonhos', 'Relato da minha viagem inesquecível.');
+(1, 'Meditações', 'A verdadeira felicidade vem de dentro.'),
+(2, 'Carta a Lucílio', 'Dedique-se à filosofia como remédio para a alma.'),
+(3, 'Discursos', 'A liberdade está em controlar suas reações.'),
+(4, 'Virtude Estoica', 'Nada é bom ou ruim, a não ser nossas ações.'),
+(5, 'Natureza Racional', 'Viver de acordo com a natureza é a chave.'),
+(6, 'Sobre a Ética', 'A virtude é suficiente para a felicidade.'),
+(7, 'Treinamento Estoico', 'Pratique o autocontrole em cada momento.'),
+(8, 'Sobre o Logos', 'O universo é governado pela razão divina.'),
+(9, 'Comunidade Estoica', 'Ame seu próximo como parte de si mesmo.'),
+(10, 'Equilíbrio Estoico', 'A tranquilidade nasce da aceitação do destino.');
+
+-- Inserindo posts (Mes diferentes)
+INSERT INTO Post (fkUsuario, titulo, texto, dtPost) VALUES
+(1, 'Reflexões Diárias', 'Reserve um momento do dia para refletir sobre suas ações e pensamentos.', '2024-01-12 08:00:00'),
+(2, 'A Arte da Paciência', 'A paciência é uma virtude essencial para viver de forma tranquila.', '2024-02-25 14:45:00'),
+(3, 'O Controle da Raiva', 'Não é o que acontece, mas como reagimos que importa.', '2024-03-10 09:30:00'),
+(4, 'O Valor da Simplicidade', 'Viver com menos é viver mais próximo da natureza.', '2024-04-18 17:20:00'),
+(5, 'Aceitação do Destino', 'Não lute contra o inevitável; aceite-o como parte do todo.', '2024-05-23 10:15:00'),
+(6, 'Fortaleza Interna', 'A força verdadeira vem de dentro, e não de circunstâncias externas.', '2024-06-05 15:00:00'),
+(7, 'Conexão Universal', 'Estamos todos interligados, como partes de um corpo maior.', '2024-07-22 12:00:00'),
+(8, 'Desapego Material', 'O excesso de apego a bens é fonte de sofrimento.', '2024-08-08 16:10:00'),
+(9, 'Resiliência Estoica', 'Encontre força nas adversidades e cresça com elas.', '2024-09-11 11:50:00'),
+(10, 'Viver no Presente', 'Concentre-se no momento atual; é tudo o que realmente existe.', '2024-10-29 18:30:00');
+
 
 -- Inserindo curtidas
 INSERT INTO Curtida (fkUsuario, fkPost) 
 VALUES 
-(2, 1), -- Maria curtiu o post do João
-(3, 1), -- Carlos curtiu o post do João
-(1, 2), -- João curtiu o post da Maria
-(2, 3); -- Maria curtiu o post do Carlos
-
-SELECT p.idPost, (SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = idPost), p.titulo, p.texto, p.dtPost, u.idUsuario as Dono, u.nome 
-    FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario;
-    
-SELECT p.idPost as idPost, (SELECT COUNT(idCurtida) FROM Curtida JOIN Post ON fkPost = idPost WHERE fkPost = p.idPost) as contagemLike, p.titulo as titulo, p.texto as texto, DATE_FORMAT(p.dtPost, '%Y-%m-%d') as dataPost, u.idUsuario as Dono, u.nome as nomeUsuario FROM Post as p JOIN Usuario as u ON fkUsuario = idUsuario ORDER BY dtPost desc;
-    
-SELECT DATE_FORMAT(dtPost, '%Y-%m-%d') FROM post;
-
-SELECT SUM((SELECT COUNT(idCurtida) FROM Curtida WHERE fkPost = (SELECT idPost FROM Post WHERE fkUsuario = 1))) FROM Post JOIN Curtida ON fkPost = idPost;
-
-SELECT SUM(curtidas_por_post) 
-FROM (
-    SELECT COUNT(c.idCurtida) AS curtidas_por_post
-    FROM Post p
-    LEFT JOIN Curtida c ON c.fkPost = p.idPost
-    WHERE p.fkUsuario = 1
-    GROUP BY p.idPost
-) AS subconsulta;
-
-SELECT p.titulo as titulo, p.texto as texto, COUNT(c.idCurtida) as total_curtidas FROM Post p LEFT JOIN Curtida c ON c.fkPost = p.idPost WHERE p.fkUsuario = 1 GROUP BY p.idPost ORDER BY total_curtidas DESC LIMIT 1;
-
-SELECT 
-    Month(dtPost) as mes,
-    COUNT(*) AS quantidade_posts
-FROM 
-    Post
-WHERE 
-    fkUsuario = 1
-GROUP BY 
-    Month(dtPost)
-ORDER BY 
-    Month(dtPost);
-    
-INSERT INTO Post (fkUsuario, titulo, texto, dtPost) VALUES 
-(1, 'Reflexões Estoicas', 'Comece o ano com propósito. A disciplina é o caminho para a liberdade.', '2024-01-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Resista às adversidades com coragem. Concentre-se no que você pode controlar.', '2024-02-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Aceite as mudanças inevitáveis com serenidade e mantenha a mente tranquila.', '2024-03-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'A prática diária da virtude leva à excelência. Foque na sua ética.', '2024-04-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Tudo tem o seu tempo. Cultive a paciência e aprenda a esperar.', '2024-05-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Busque sempre a verdade e o conhecimento. A sabedoria é a base do estoicismo.', '2024-06-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Enfrente os desafios do meio do ano com bravura e determinação.', '2024-07-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Equilibre as emoções e os desejos. A virtude está no meio termo.', '2024-08-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Aprecie as pequenas coisas e seja grato pelo presente.', '2024-09-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'O outono nos ensina a deixar ir. Seja resiliente diante das perdas.', '2024-10-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Mantenha o autocontrole mesmo quando o mundo ao seu redor parece caótico.', '2024-11-15 10:00:00'),
-(1, 'Reflexões Estoicas', 'Olhe para o ano que passou. Aprenda com os erros e celebre as conquistas.', '2024-12-15 10:00:00');
+(2, 1), (3, 1), (4, 1), 
+(1, 2), (3, 2), (5, 2), 
+(1, 3), (4, 3), (6, 3), 
+(2, 4), (7, 4), (8, 4), 
+(1, 5), (6, 5), (9, 5), 
+(3, 6), (5, 6), (7, 6), 
+(2, 7), (8, 7), (10, 7), 
+(1, 8), (4, 8), (9, 8), 
+(3, 9), (5, 9), (6, 9), 
+(7, 10), (8, 10), (10, 10);
