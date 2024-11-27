@@ -41,7 +41,7 @@
                 console.log("Dados recebidos: ", JSON.stringify(dados));
 
                 const feed = document.getElementById("feed");
-                feed.innerHTML = ""; // Limpa o feed antes de preencher
+                feed.innerHTML = "";
 
                 for (let publicacao of dados) {
                     const sectionPost = document.createElement("section");
@@ -62,9 +62,9 @@
                     console.log("Resposta do like:", respostaLike);
 
                     if (respostaLike) {
-                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="descurtirPost(${publicacao.idPost})"><img src="assets/heart-red.svg"></a>`;
+                        spanLike.innerHTML = `<p id="qtdLike${publicacao.idPost}">${publicacao.contagemLike}</p> <a id="like${publicacao.idPost}" onclick="descurtirPost(${publicacao.idPost}, like${publicacao.idPost}, qtdLike${publicacao.idPost})"><img src="assets/heart-red.svg"></a>`;
                     } else {
-                        spanLike.innerHTML = `${publicacao.contagemLike} <a onclick="curtirPost(${publicacao.idPost})"><img src="assets/heart.svg"></a>`;
+                        spanLike.innerHTML = `<p id="qtdLike${publicacao.idPost}">${publicacao.contagemLike}</p> <a id="like${publicacao.idPost}" onclick="curtirPost(${publicacao.idPost}, like${publicacao.idPost}, qtdLike${publicacao.idPost})"><img src="assets/heart.svg"></a>`;
                     }
 
                     pText.innerHTML = `${publicacao.texto}`;
@@ -106,12 +106,12 @@
                 }
             });
 
-            if (resposta.ok) {
+            if (resposta.status != 204) {
                 const json = await resposta.json();
                 console.log(json);
                 return json.length > 0;
             } else {
-                console.log("Erro ao buscar o like.");
+                console.log("Nenhum like encontrado para esse post.");
                 return false;
             }
         } catch (erro) {
@@ -120,5 +120,58 @@
         }
     }
 
-    JSON.parse(sessionStorage.ID_USUARIO)
+    function curtirPost(idPost, idPostHTML, qtdLike) {
+        var idUsuario = JSON.parse(sessionStorage.ID_USUARIO);
+        fetch("/post/curtirPost", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idPostServer: idPost,
+                idUsuarioServer: idUsuario
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    qtdLike.innerHTML = Number(qtdLike.innerHTML) + 1;
+                    idPostHTML.onclick = function() {descurtirPost(idPost, idPostHTML, qtdLike)};
+                    idPostHTML.innerHTML = `<img src="assets/heart-red.svg">`;
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+    function descurtirPost(idPost, idPostHTML, qtdLike) {
+        var idUsuario = JSON.parse(sessionStorage.ID_USUARIO);
+        fetch("/post/descurtirPost", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idPostServer: idPost,
+                idUsuarioServer: idUsuario
+            }),
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    qtdLike.innerHTML = Number(qtdLike.innerHTML) - 1;
+                    idPostHTML.onclick = function() {curtirPost(idPost, idPostHTML, qtdLike)};
+                    idPostHTML.innerHTML = `<img src="assets/heart.svg">`;
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+        return false;
+    }
 </script>

@@ -15,8 +15,20 @@ function verificarLike(idPost, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function curtirPost(idPost, idUsuario) {
+    var instrucaoSql = `INSERT INTO Curtida(fkPost, fkUsuario) VALUES (${idPost}, ${idUsuario});`
+    return database.executar(instrucaoSql);
+}
+
+function descurtirPost(idPost, idUsuario) {
+    var instrucaoSql = `DELETE FROM Curtida WHERE fkPost = ${idPost} AND fkUsuario = ${idUsuario};`
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     publicarPost,
     carregarPosts,
-    verificarLike
+    verificarLike,
+    curtirPost,
+    descurtirPost
 }

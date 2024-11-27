@@ -15,4 +15,12 @@ router.get("/verificarLike/:idPost/:idUsuario", function (req, res) {
     postController.verificarLike(req, res);
 });
 
+router.post("/curtirPost", function (req, res) {
+    postController.curtirPost(req, res);
+});
+
+router.post("/descurtirPost", function (req, res) {
+    postController.descurtirPost(req, res);
+});
+
 module.exports = router;

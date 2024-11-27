@@ -67,8 +67,56 @@ function verificarLike(req, res) {
         );
 }
 
+function curtirPost(req, res) {
+    var idPost = req.body.idPostServer;
+    var idUsuario = req.body.idUsuarioServer;
+
+    postModel.curtirPost(idPost, idUsuario)
+        .then(
+            function (resultado) {
+                console.log(resultado.length)
+                if (resultado.length == 0) {
+                    return res.status(204).send()
+                }
+                return res.status(200).json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao buscar o like: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function descurtirPost(req, res) {
+    var idPost = req.body.idPostServer;
+    var idUsuario = req.body.idUsuarioServer;
+
+    postModel.descurtirPost(idPost, idUsuario)
+        .then(
+            function (resultado) {
+                console.log(resultado.length)
+                if (resultado.length == 0) {
+                    return res.status(204).send()
+                }
+                return res.status(200).json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao buscar o like: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     publicarPost,
     carregarPosts,
-    verificarLike
+    verificarLike,
+    curtirPost,
+    descurtirPost
 }
