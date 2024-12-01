@@ -285,9 +285,9 @@ function closeConfirm(telaConfirma) {
 
 function trocarNome() {
     var idUsuarioVar = sessionStorage.ID_USUARIO;
-    var nomeVar = input_novo_nome.value
-    var senhaUsuario = input_confirm_senha.value
     var senhaStorage = sessionStorage.SENHA_USUARIO;
+    var nomeVar = input_novo_nome.value;
+    var senhaUsuario = input_confirm_senha.value;
 
     if (senhaUsuario != senhaStorage) {
         return alert(`Senha incorreta!`)
@@ -316,6 +316,7 @@ function trocarNome() {
                 input_nome_atual.value = ''
                 input_novo_nome.value = ''
                 input_cnovo_nome.value = ''
+                input_confirm_senha.value = ''
                 
                 var sectionConfirmacoes = document.getElementById('confirmacoes');
                 var displayConfirmarcao = document.getElementById('confirmarNome');
@@ -327,6 +328,63 @@ function trocarNome() {
         } else {
 
             console.log("Houve um erro ao tentar trocar o nome!");
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+    return false;
+}
+
+function trocarSenha() {
+    var idUsuarioVar = sessionStorage.ID_USUARIO;
+    var senhaVar = input_novo_senha.value
+    var fraseFinal = fraseAleatoria.innerHTML
+    var fraseUsuario = input_confirm_quote.value; + ' '
+
+    if (fraseFinal != fraseUsuario) {
+        return alert(`Frase incorreta!`)
+    }
+
+    fetch("/usuarios/trocarSenha", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idUsuarioServer: idUsuarioVar,
+            senhaServer: senhaVar
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+
+        if (resposta.ok) {
+            console.log(resposta);
+            resposta.json().then(json => {
+                console.log(json);
+                alert(`Senha alterada com sucesso!`)
+
+                sessionStorage.SENHA_USUARIO = senhaVar;
+
+                input_senha_atual.value = ''
+                input_novo_senha.value = ''
+                input_cnovo_senha.value = ''
+                input_confirm_quote.value = ''
+                
+                var sectionConfirmacoes = document.getElementById('confirmacoes');
+                var displayConfirmarcao = document.getElementById('confirmarSenha');
+
+                displayConfirmarcao.style.display = 'none';
+                sectionConfirmacoes.style.display = 'none';
+            });
+
+        } else {
+
+            console.log("Houve um erro ao tentar trocar a senha!");
             resposta.text().then(texto => {
                 console.error(texto);
             });

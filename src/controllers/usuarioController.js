@@ -118,9 +118,10 @@ function trocarNome(req, res) {
 function trocarSenha(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var id = req.body.idUsuarioServer;
+    var novaSenha = req.body.senhaServer;
 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    usuarioModel.trocarSenha(id)
+    usuarioModel.trocarSenha(id, novaSenha)
         .then(
             function (resultado) {
                 res.json(resultado);
