@@ -17,17 +17,26 @@ function cadastrar(nome, email, senha) {
 }
 
 function excluirConta(id) {
+    excluirTodosPosts(id)
+    excluirCurtidas(id)
     var instrucaoSql = `
         DELETE FROM usuario WHERE idUsuario = ${id};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    excluirTodosPosts(id)
     return database.executar(instrucaoSql);
 }
 
 function excluirTodosPosts(id) {
     var instrucaoSql = `
         DELETE FROM post WHERE fkUsuario = ${id};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function excluirCurtidas(id) {
+    var instrucaoSql = `
+        DELETE FROM curtida WHERE fkUsuario = ${id};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -62,6 +71,7 @@ module.exports = {
     cadastrar,
     excluirConta,
     excluirTodosPosts,
+    excluirCurtidas,
     excluirPost,
     trocarNome,
     trocarSenha

@@ -399,19 +399,19 @@ function trocarSenha() {
 
 function excluirConta() {
     var idUsuarioVar = sessionStorage.ID_USUARIO;
-    var nomeVar = sessionStorage.NOME_USUARIO;
-    var emailVar = sessionStorage.EMAIL_USUARIO;
-    var senhaVar = sessionStorage.SENHA_USUARIO;
+    var nomeUsuario = sessionStorage.NOME_USUARIO;
+    var emailUsuario = sessionStorage.EMAIL_USUARIO;
+    var senhaUsuario = sessionStorage.SENHA_USUARIO;
 
-    var nome = input_nome_del.value;
-    var email = input_email_del.value;
-    var senha = input_senha_del.value;
+    var nomeVar = input_nome_del.value;
+    var emailVar = input_email_del.value;
+    var senhaVar = input_senha_del.value;
 
-    if (nome != nomeVar) {
+    if (nomeUsuario != nomeVar) {
         return alert('Nome incorreto!')
-    } else if (email != emailVar) {
+    } else if (emailUsuario != emailVar) {
         return alert('Email incorreto!')
-    } else if (senha != senhaVar) {
+    } else if (senhaUsuario != senhaVar) {
         return alert('Senha incorreta!')
     }
 
@@ -430,6 +430,8 @@ function excluirConta() {
             console.log(resposta);
             resposta.json().then(json => {
                 console.log(json);
+
+                alert(`Conta excluida com sucesso!`)
 
                 sessionStorage.clear()
 
