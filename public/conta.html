@@ -9,25 +9,29 @@
 </head>
 
 <body onload="totalPost(), totalCurtidas(), postMaisCurtido(), numeroPostsMes()">
-    <section class="confirmacoes">
-        <article style="display: none;" id="confirmarNome">
+    <section class="confirmacoes" id="confirmacoes">
+        <article id="confirmarNome">
             <h2>Confirmar</h2>
             <div id="fconfirm_name">
-                <label for="input_confirm_senha">Digite a senha para confirmar a troca de nome</label>
-                <input type="password" form="fconfirm_name" id="input_confirm_senha" required>
-                <button class="button-confirm" onclick="TrocarNome()">Confirmar</button>
-                <button onclick="closeConfirm('Name')" class="button-cancel">Cancelar</button>
+                <span>Digite a senha para confirmar a troca de nome</span>
+                <input type="password" id="input_confirm_senha" required>
+                <div class="confirm-buttons">
+                    <button class="button-confirm" onclick="TrocarNome()">Confirmar</button>
+                    <button onclick="closeConfirm('Name')" class="button-cancel">Cancelar</button>
+                </div>
             </div>
         </article>
 
         <article style="display: none;" id="confirmarSenha">
             <h2>Confirmar</h2>
             <div id="fconfirm_pass">
-                <label for="input_confirm_quote">Digite a frase abaixo para confirmar a troca</label>
+                <span>Digite a frase abaixo para confirmar a troca</span>
                 <p id="fraseAleatoria">"Uma frase super legal"</p>
-                <input type="password" form="fconfirm_pass" id="input_confirm_quote" required>
-                <button class="button-confirm" onclick="trocarSenha()">Confirmar</button>
-                <button onclick="closeConfirm('Password')" class="button-cancel">Cancelar</button>
+                <input type="password" id="input_confirm_quote" required>
+                <div class="confirm-buttons">
+                    <button class="button-confirm" onclick="trocarSenha()">Confirmar</button>
+                    <button onclick="closeConfirm('Password')" class="button-cancel">Cancelar</button>
+                </div>
             </div>
         </article>
 
@@ -131,11 +135,11 @@
             <section class="delete-account" id="conta" style="display: none;">
                 <article>
                     <div id="fdelconta">
-                        <label for="input_nome_del">Nome</label>
+                        <span>Nome</span>
                         <input id="input_nome_del" required>
-                        <label for="input_email">Email</label>
+                        <span>Email</span>
                         <input id="input_email_del" required>
-                        <label for="input_senha">Senha</label>
+                        <span>Senha</span>
                         <input id="input_senha_del" required>
                         <button class="button-confirm" onclick="excluirConta()">Confirmar</button>
                         <button onclick="closeConfirm('delAccount')" class="button-cancel">Cancelar</button>

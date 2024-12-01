@@ -70,6 +70,67 @@ small {font-size: 0.750rem; /* 12px */}
     color: var(--text);
 }
 
+.confirmacoes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.confirmacoes article {
+    background: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--text);
+    gap: 16px;
+}
+
+#fconfirm_name, #fconfirm_pass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.confirmacoes article div input {
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px;
+    color: var(--text);
+    font-family: 'Brygada 1918';
+    background-color: #0A0A0A;
+}
+
+.confirm-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin-top: 8px;
+}
+
+.button-cancel {
+    border: 1px solid red;
+    background-color: transparent;
+    border-radius: 20px;
+    padding: 10px 2vw;
+    color: var(--text);
+}
+
 main {
     height: calc(100vh - 10vh);
     display: flex;

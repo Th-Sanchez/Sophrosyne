@@ -191,7 +191,7 @@ function numeroPostsMes() {
 }
 
 function confirmarTrocarNome() {
-    const nomeUsuario = JSON.parse(sessionStorage.NOME_USUARIO);
+    const nomeUsuario = sessionStorage.NOME_USUARIO;
     const nomeAtual = input_nome_atual.value
     const novoNome = input_novo_nome.value
     const confirmarNovoNome = input_cnovo_nome.value
@@ -204,11 +204,21 @@ function confirmarTrocarNome() {
         return alert('A confirmarção de nome está errada!')
     }
 
-    const displayConfirmarcao = document.getElementById('confirmarNome');
-    const sectionConfirmacoes = document.getElementById('confirmacoes');
+    var displayConfirmarcao = document.getElementById('confirmarNome');
+    var sectionConfirmacoes = document.getElementById('confirmacoes');
 
     displayConfirmarcao.style.display = 'flex';
     sectionConfirmacoes.style.display = 'flex';
+}
+
+function closeConfirm(telaConfirma) {
+    var sectionConfirmacoes = document.getElementById('confirmacoes');
+    if (telaConfirma == `Name`) {
+        var displayConfirmarcao = document.getElementById('confirmarNome');
+
+        displayConfirmarcao.style.display = 'none';
+        sectionConfirmacoes.style.display = 'none';
+    }
 }
 
 function excluirConta() {
