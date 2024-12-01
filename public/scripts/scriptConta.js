@@ -320,7 +320,7 @@ function trocarNome() {
 
         } else {
 
-            console.log("Houve um erro ao tentar excluir a conta!");
+            console.log("Houve um erro ao tentar trocar o nome!");
             resposta.text().then(texto => {
                 console.error(texto);
             });
