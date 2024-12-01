@@ -221,60 +221,66 @@ function closeConfirm(telaConfirma) {
     }
 }
 
-function excluirConta() {
-    var idUsuarioVar = sessionStorage.ID_USUARIO;
-    var nomeVar = sessionStorage.NOME_USUARIO;
-    var emailVar = sessionStorage.EMAIL_USUARIO;
-    var senhaVar = sessionStorage.SENHA_USUARIO;
+function confirmarTrocarSenha() {
+    const senhaUsuario = sessionStorage.SENHA_USUARIO;
+    const senhaAtual = input_senha_atual.value
+    const novaSenha = input_novo_senha.value
+    const confirmarNovaSenha = input_cnovo_senha.value
 
-    var nome = input_nome_del.value;
-    var email = input_email_del.value;
-    var senha = input_senha_del.value;
+    if (senhaAtual != senhaUsuario) {
+        return alert('A senha atual está incorreto!')
+    } else if (senhaAtual == novaSenha) {
+        return alert('O novo nome é igual ao nome antigo!')
+    } else if (novaSenha != confirmarNovaSenha) {
+        return alert('A confirmarção de nome está errada!')
+    }
+    
+    var tudoCerto = 1 
 
-    if (nome != nomeVar) {
-        return alert('Nome incorreto!')
-    } else if (email != emailVar) {
-        return alert('Email incorreto!')
-    } else if (senha != senhaVar) {
-        return alert('Senha incorreta!')
+    for (var i = 0; i <= tudoCerto; i++) {
+        var primeiraPosicao = Math.round(Math.random() * 18 + 1);
+        var segundaPosicao = Math.round(Math.random() * 19 + 1);
+
+        if (primeiraPosicao > segundaPosicao || segundaPosicao - primeiraPosicao > 4 || segundaPosicao - primeiraPosicao == 0) {
+            tudoCerto++
+        }
     }
 
-    fetch("/usuarios/excluirConta", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            idUsuarioServer: idUsuarioVar
-        })
-    }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
+    const listaPalavras = [
+        "virtude ", "sabedoria ", "disciplina ", "autocontrole ", "tranquilidade ",
+        "reflexão ", "gratidão ", "razão ", "fortaleza ", "eudaimonia ",
+        "cosmos ", "prática ", "resiliência ", "destino ", "ação ",
+        "aceitação ", "propósito ", "harmonia ", "coragem ", "serenidade "
+    ];
 
-        if (resposta.ok) {
-            console.log(resposta);
-            resposta.json().then(json => {
-                console.log(json);
+    var fraseFinal = ''
 
-                sessionStorage.clear()
+    for (var palavraAtual = primeiraPosicao; palavraAtual <= segundaPosicao; palavraAtual++) {
+        fraseFinal += listaPalavras[palavraAtual]
+    }
 
-                setTimeout(function () {
-                    window.location = "/index.html";
-                }, 1000); // apenas para exibir o loading
-            });
+    fraseAleatoria.innerHTML = fraseFinal
 
-        } else {
+    var displayConfirmarcao = document.getElementById('confirmarSenha');
+    var sectionConfirmacoes = document.getElementById('confirmacoes');
 
-            console.log("Houve um erro ao tentar excluir a conta!");
-            resposta.text().then(texto => {
-                console.error(texto);
-            });
-        }
+    displayConfirmarcao.style.display = 'flex';
+    sectionConfirmacoes.style.display = 'flex';
+}
 
-    }).catch(function (erro) {
-        console.log(erro);
-    })
+function closeConfirm(telaConfirma) {
+    var sectionConfirmacoes = document.getElementById('confirmacoes');
+    if (telaConfirma == `Name`) {
+        var displayConfirmarcao = document.getElementById('confirmarNome');
 
-    return false;
+        displayConfirmarcao.style.display = 'none';
+        sectionConfirmacoes.style.display = 'none';
+    } else if (telaConfirma == `Password`) {
+        var displayConfirmarcao = document.getElementById('confirmarSenha');
+
+        displayConfirmarcao.style.display = 'none';
+        sectionConfirmacoes.style.display = 'none';
+    }
 }
 
 function trocarNome() {
@@ -321,6 +327,62 @@ function trocarNome() {
         } else {
 
             console.log("Houve um erro ao tentar trocar o nome!");
+            resposta.text().then(texto => {
+                console.error(texto);
+            });
+        }
+
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+
+    return false;
+}
+
+function excluirConta() {
+    var idUsuarioVar = sessionStorage.ID_USUARIO;
+    var nomeVar = sessionStorage.NOME_USUARIO;
+    var emailVar = sessionStorage.EMAIL_USUARIO;
+    var senhaVar = sessionStorage.SENHA_USUARIO;
+
+    var nome = input_nome_del.value;
+    var email = input_email_del.value;
+    var senha = input_senha_del.value;
+
+    if (nome != nomeVar) {
+        return alert('Nome incorreto!')
+    } else if (email != emailVar) {
+        return alert('Email incorreto!')
+    } else if (senha != senhaVar) {
+        return alert('Senha incorreta!')
+    }
+
+    fetch("/usuarios/excluirConta", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idUsuarioServer: idUsuarioVar
+        })
+    }).then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!")
+
+        if (resposta.ok) {
+            console.log(resposta);
+            resposta.json().then(json => {
+                console.log(json);
+
+                sessionStorage.clear()
+
+                setTimeout(function () {
+                    window.location = "/index.html";
+                }, 1000); // apenas para exibir o loading
+            });
+
+        } else {
+
+            console.log("Houve um erro ao tentar excluir a conta!");
             resposta.text().then(texto => {
                 console.error(texto);
             });
