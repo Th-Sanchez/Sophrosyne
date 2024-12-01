@@ -279,7 +279,13 @@ function excluirConta() {
 
 function trocarNome() {
     var idUsuarioVar = sessionStorage.ID_USUARIO;
-    var nomeVar = input_nome.value
+    var nomeVar = input_novo_nome.value
+    var senhaUsuario = input_confirm_senha.value
+    var senhaStorage = sessionStorage.SENHA_USUARIO;
+
+    if (senhaUsuario != senhaStorage) {
+        return alert(`Senha incorreta!`)
+    }
 
     fetch("/usuarios/trocarNome", {
         method: "POST",
@@ -287,7 +293,8 @@ function trocarNome() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            idUsuarioServer: idUsuarioVar
+            idUsuarioServer: idUsuarioVar,
+            nomeServer: nomeVar
         })
     }).then(function (resposta) {
         console.log("ESTOU NO THEN DO entrar()!")
@@ -296,10 +303,19 @@ function trocarNome() {
             console.log(resposta);
             resposta.json().then(json => {
                 console.log(json);
+                alert(`Nome alterado com sucesso!`)
 
-                setTimeout(function () {
-                    window.location = "/index.html";
-                }, 1000); // apenas para exibir o loading
+                sessionStorage.NOME_USUARIO	= nomeVar;
+
+                input_nome_atual.value = ''
+                input_novo_nome.value = ''
+                input_cnovo_nome.value = ''
+                
+                var sectionConfirmacoes = document.getElementById('confirmacoes');
+                var displayConfirmarcao = document.getElementById('confirmarNome');
+
+                displayConfirmarcao.style.display = 'none';
+                sectionConfirmacoes.style.display = 'none';
             });
 
         } else {

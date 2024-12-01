@@ -95,9 +95,10 @@ function excluirConta(req, res) {
 function trocarNome(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var id = req.body.idUsuarioServer;
+    var novoNome = req.body.nomeServer;
 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    usuarioModel.trocarNome(id)
+    usuarioModel.trocarNome(id, novoNome)
         .then(
             function (resultado) {
                 res.json(resultado);

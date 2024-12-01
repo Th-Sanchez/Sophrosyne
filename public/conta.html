@@ -10,13 +10,13 @@
 
 <body onload="totalPost(), totalCurtidas(), postMaisCurtido(), numeroPostsMes()">
     <section class="confirmacoes" id="confirmacoes">
-        <article id="confirmarNome">
+        <article style="display: none;" id="confirmarNome">
             <h2>Confirmar</h2>
             <div id="fconfirm_name">
                 <span>Digite a senha para confirmar a troca de nome</span>
                 <input type="password" id="input_confirm_senha" required>
                 <div class="confirm-buttons">
-                    <button class="button-confirm" onclick="TrocarNome()">Confirmar</button>
+                    <button class="button-confirm" onclick="trocarNome()">Confirmar</button>
                     <button onclick="closeConfirm('Name')" class="button-cancel">Cancelar</button>
                 </div>
             </div>
@@ -33,10 +33,6 @@
                     <button onclick="closeConfirm('Password')" class="button-cancel">Cancelar</button>
                 </div>
             </div>
-        </article>
-
-        <article style="display: none;" >
-
         </article>
     </section>
 
