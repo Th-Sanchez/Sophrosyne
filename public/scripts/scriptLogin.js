@@ -63,9 +63,27 @@ var containerLogin = document.getElementById('login')
         var senhaVar = cadastro_senha_input.value;
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
+        var caracteresEspeciais = '!@#$%&*_?-'
+        var temEspecial = false
+
+        for (var posicaoCaractere = 0; posicaoCaractere < senhaVar.length; posicaoCaractere++) {
+            for (var posicaoEspecial = 0; posicaoEspecial < caracteresEspeciais.length; posicaoEspecial++) {
+                if (senhaVar[posicaoCaractere] == caracteresEspeciais[posicaoEspecial]) {
+                    temEspecial = true;
+                }
+            }
+        }
+
+        if (nomeVar.length > 20) {
+            return alert('Nome muito grande!')
+        } else if (emailVar.indexOf('@') == -1 || emailVar.indexOf('.') == -1) {
+            return alert('Por favor, insira um email válido!')
+        } else if (!temEspecial) {
+            return alert('Senha muito fraca, insira ao menos um caractere especial')
+        }
+
         if (senhaVar != confirmacaoSenhaVar) {
-            alert('ATENÇÃO! As senha digitadas deve ser iguais');
-            return;
+            return alert('ATENÇÃO! As senha digitadas deve ser iguais');
         }
 
         // Enviando o valor da nova input
@@ -86,6 +104,7 @@ var containerLogin = document.getElementById('login')
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
+                    alert('Usuário cadastrado com sucesso!')
                     setTimeout(() => {
                         window.location = "login.html";
                     }, "2000");
