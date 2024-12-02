@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function autenticar(email, senha) {
     var instrucaoSql = `
-        SELECT idUsuario, nome, email, senha FROM usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT idUsuario, nome, email, senha FROM Usuario WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -10,7 +10,7 @@ function autenticar(email, senha) {
 
 function cadastrar(nome, email, senha) {
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}');
+        INSERT INTO Usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -20,7 +20,7 @@ function excluirConta(id) {
     excluirTodosPosts(id)
     excluirCurtidas(id)
     var instrucaoSql = `
-        DELETE FROM usuario WHERE idUsuario = ${id};
+        DELETE FROM Usuario WHERE idUsuario = ${id};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -28,7 +28,7 @@ function excluirConta(id) {
 
 function excluirTodosPosts(id) {
     var instrucaoSql = `
-        DELETE FROM post WHERE fkUsuario = ${id};
+        DELETE FROM Post WHERE fkUsuario = ${id};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -36,7 +36,7 @@ function excluirTodosPosts(id) {
 
 function excluirCurtidas(id) {
     var instrucaoSql = `
-        DELETE FROM curtida WHERE fkUsuario = ${id};
+        DELETE FROM Curtida WHERE fkUsuario = ${id};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -44,7 +44,7 @@ function excluirCurtidas(id) {
 
 function excluirPost(idUsuario, idPost) {
     var instrucaoSql = `
-        DELETE FROM post WHERE fkUsuario = ${idUsuario} AND idPost = ${idPost};
+        DELETE FROM Post WHERE fkUsuario = ${idUsuario} AND idPost = ${idPost};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -52,7 +52,7 @@ function excluirPost(idUsuario, idPost) {
 
 function trocarNome(idUsuario, nomeUsuario) {
     var instrucaoSql = `
-        UPDATE usuario SET nome = '${nomeUsuario}' WHERE idUsuario = ${idUsuario};
+        UPDATE Usuario SET nome = '${nomeUsuario}' WHERE idUsuario = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -60,7 +60,7 @@ function trocarNome(idUsuario, nomeUsuario) {
 
 function trocarSenha(idUsuario, senhaUsuario) {
     var instrucaoSql = `
-        UPDATE usuario SET senha = '${senhaUsuario}' WHERE idUsuario = ${idUsuario};
+        UPDATE Usuario SET senha = '${senhaUsuario}' WHERE idUsuario = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
